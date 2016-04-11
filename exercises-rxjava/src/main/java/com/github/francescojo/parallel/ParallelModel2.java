@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.CountDownLatch;
 
 import static com.github.francescojo.parallel.ParallelExecutionExample.doSomeBusinessJob;
+import static com.github.francescojo.parallel.ParallelExecutionExample.doSomeError;
 import static com.github.francescojo.parallel.ParallelExecutionExample.sleepUnConditionally;
 
 /**
@@ -21,6 +22,7 @@ class ParallelModel2 implements Runnable {
 	@Override
 	public void run() {
 		final CountDownLatch cdl = new CountDownLatch(3);
+		final boolean[] successFlags = new boolean[] { false, false, false };
 
 		final Thread th1 = new Thread(() -> {
 			LOG.debug("model2Job1 started");
@@ -29,6 +31,7 @@ class ParallelModel2 implements Runnable {
 			long delta = System.currentTimeMillis() - t1;
 			LOG.debug("model2Job1 finished in " + delta + " ms");
 			cdl.countDown();
+			successFlags[0] = true;
 		});
 
 		final Thread th2 = new Thread(() -> {
@@ -38,6 +41,7 @@ class ParallelModel2 implements Runnable {
 			long delta = System.currentTimeMillis() - t1;
 			LOG.debug("model2Job2 finished in " + delta + " ms");
 			cdl.countDown();
+			successFlags[1] = true;
 		});
 
 		final Thread th3 = new Thread(() -> {
@@ -47,6 +51,7 @@ class ParallelModel2 implements Runnable {
 			long delta = System.currentTimeMillis() - t1;
 			LOG.debug("model2Job3 finished in " + delta + " ms");
 			cdl.countDown();
+			successFlags[2] = true;
 		});
 
 		th1.start();
@@ -55,7 +60,15 @@ class ParallelModel2 implements Runnable {
 		try {
 			cdl.await();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			/*
+			 * what if.. there're more than single 'false' flags??
+			 */
+			for (int i = 0, limit = successFlags.length; i < limit; i++) {
+				if (!successFlags[i]) {
+					doSomeError(2, (i + 1));
+					return;
+				}
+			}
 		}
 		doSomeBusinessJob(2);
 	}

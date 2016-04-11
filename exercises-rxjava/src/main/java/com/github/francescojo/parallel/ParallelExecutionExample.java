@@ -28,6 +28,15 @@ public class ParallelExecutionExample {
 		LOG.debug("BUSINESS JOB OF #" + jobId + " HAS BEEN ENDED\n");
 	}
 
+	static void doSomeError(int jobId, int taskId) {
+		// no-op
+		LOG.error("ERROR OCCURRED ON BUSINESS JOB #" + jobId + ", TASK #" + taskId + "\n");
+	}
+
+	/**
+	 * Simulator method for some time-taking IO task.
+	 * @param ms length of time spent to complete certain task(s), in milliseconds
+	 */
 	static void sleepUnConditionally(long ms) {
 		try {
 			Thread.sleep(ms);

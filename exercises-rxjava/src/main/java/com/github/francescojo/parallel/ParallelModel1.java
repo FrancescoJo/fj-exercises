@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.github.francescojo.parallel.ParallelExecutionExample.doSomeBusinessJob;
+import static com.github.francescojo.parallel.ParallelExecutionExample.doSomeError;
 import static com.github.francescojo.parallel.ParallelExecutionExample.sleepUnConditionally;
 
 /**
@@ -42,21 +43,52 @@ class ParallelModel1 implements Runnable {
 			LOG.debug("model1Job3 finished in " + delta + " ms");
 		});
 
-		th1.start();
-		th2.start();
-		th3.start();
-
 		/*
-		 * 장점: Java 언어의 기본 기능만으로도 목적 달성 가능
-		 * 단점:
+		 * We must separate Thread#start and Thread#join like these, otherwise all threads will be executed
+		 * in SERIAL sequences because of the nature of Thread#join
 		 */
 		try {
+			th1.start();
+		} catch (Exception e) {
+			doSomeError(1, 1);
+			return;
+		}
+
+		try {
+			th2.start();
+		} catch (Exception e) {
+			doSomeError(1, 2);
+			return;
+		}
+
+		try {
+			th3.start();
+		} catch (Exception e) {
+			doSomeError(1, 3);
+			return;
+		}
+
+		try {
 			th1.join();
+		} catch (InterruptedException e) {
+			doSomeError(1, 1);
+			return;
+		}
+
+		try {
 			th2.join();
+		} catch (InterruptedException e) {
+			doSomeError(1, 2);
+			return;
+		}
+
+		try {
 			th3.join();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			doSomeError(1, 3);
+			return;
 		}
+
 		doSomeBusinessJob(1);
 	}
 }

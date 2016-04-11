@@ -3,9 +3,11 @@ package com.github.francescojo.parallel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.Observable;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 import static com.github.francescojo.parallel.ParallelExecutionExample.doSomeBusinessJob;
+import static com.github.francescojo.parallel.ParallelExecutionExample.doSomeError;
 import static com.github.francescojo.parallel.ParallelExecutionExample.sleepUnConditionally;
 
 /**
@@ -30,6 +32,8 @@ class ParallelModel3 implements Runnable {
 					if (!subscriber.isUnsubscribed()) {
 						subscriber.onNext(Observable.<Void>empty());
 						subscriber.onCompleted();
+					} else {
+						subscriber.onError(new RuntimeException("j1"));
 					}
 				}).subscribeOn(Schedulers.newThread()),
 
@@ -42,6 +46,8 @@ class ParallelModel3 implements Runnable {
 					if (!subscriber.isUnsubscribed()) {
 						subscriber.onNext(Observable.<Void>empty());
 						subscriber.onCompleted();
+					}  else {
+						subscriber.onError(new RuntimeException("j2"));
 					}
 				}).subscribeOn(Schedulers.newThread()),
 
@@ -54,13 +60,26 @@ class ParallelModel3 implements Runnable {
 					if (!subscriber.isUnsubscribed()) {
 						subscriber.onNext(Observable.<Void>empty());
 						subscriber.onCompleted();
+					} else {
+						subscriber.onError(new RuntimeException("j3"));
 					}
 				}).subscribeOn(Schedulers.newThread())
 		)
 		.last()
 		.toBlocking()
-		.subscribe(emptyObservable -> {
-			doSomeBusinessJob(3);
+		.subscribe(emptyObservable -> doSomeBusinessJob(3), throwable -> {
+			String errType = throwable.getMessage();
+			switch (errType) {
+				case "j1":
+					doSomeError(3, 1);
+					break;
+				case "j2":
+					doSomeError(3, 2);
+					break;
+				case "j3":
+					doSomeError(3, 3);
+					break;
+			}
 		});
 	}
 }

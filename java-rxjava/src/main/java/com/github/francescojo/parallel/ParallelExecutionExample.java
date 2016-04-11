@@ -1,3 +1,8 @@
+/*
+ * @(#)ParallelExecutionExample.java $Version 11 - Apr - 2016
+ *
+ * Distributed under no licences and no warranty.
+ */
 package com.github.francescojo.parallel;
 
 import org.slf4j.Logger;

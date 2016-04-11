@@ -9,7 +9,7 @@ package android.net.http;
 /**
  * Compiler hack for avoiding unsatisfied dependency over Android M
  *
- * @author Hwan Jo(nimbusob@gmail.com)
+ * @author Francesco Jo(nimbusob@gmail.com)
  * @see <a href="https://github.com/robolectric/robolectric/issues/1862">Robolectric: Need to separate out org.apache.http shadows to compile against M developer preview</a>
  */
 @SuppressWarnings("unused")

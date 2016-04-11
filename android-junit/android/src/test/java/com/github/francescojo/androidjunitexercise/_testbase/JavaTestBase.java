@@ -1,8 +1,7 @@
 /*
  * @(#)JavaTestBase.java $Version 13 - Nov - 2015
  *
- * Licenced under Apache License v2.0.
- * Read http://www.apache.org/licenses/ for details.
+ * Distributed under no licences and no warranty.
  */
 package com.github.francescojo.androidjunitexercise._testbase;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.fail;
 
 /**
- * @author Hwan Jo(nimbusob@gmail.com)
+ * @author Francesco Jo(nimbusob@gmail.com)
  */
 @Ignore("Test base class on Java logic only")
 public class JavaTestBase {

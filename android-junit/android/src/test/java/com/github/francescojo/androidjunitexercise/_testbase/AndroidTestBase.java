@@ -1,8 +1,7 @@
 /*
  * @(#)AndroidTestBase.java $Version 13 - Nov - 2015
  *
- * Licenced under Apache License v2.0.
- * Read http://www.apache.org/licenses/ for details.
+ * Distributed under no licences and no warranty.
  */
 package com.github.francescojo.androidjunitexercise._testbase;
 
@@ -19,7 +18,7 @@ import org.robolectric.annotation.Config;
 /**
  * Common test configuration for Android dependent logic.
  *
- * @author Hwan Jo(nimbusob@gmail.com)
+ * @author Francesco Jo(nimbusob@gmail.com)
  */
 @Ignore("Test base class with Android resources")
 @RunWith(MyRobolectricGradleTestRunner.class)

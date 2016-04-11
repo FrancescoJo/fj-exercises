@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+*.iml
+.gradle/
+
+# Java class files
+*.class
+
+bin/
+gen/
+build/

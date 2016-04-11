@@ -1,0 +1,20 @@
+group 'com.github.francescojo'
+version '0.1'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'io.reactivex:rxjava:1.1.3'
+	compile 'org.slf4j:slf4j-api:1.7.20'
+	compile 'org.slf4j:slf4j-log4j12:1.7.20'
+	compile 'org.apache.logging.log4j:log4j-api:2.5'
+	compile 'org.apache.logging.log4j:log4j-core:2.5'
+
+	testCompile group: 'junit', name: 'junit', version: '4.11'
+}

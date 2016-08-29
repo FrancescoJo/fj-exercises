@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.francescojo.awesome.sqlmap.CounterSqlMap">
+	<select id="getCounter" resultType="CounterDto">
+		SELECT *
+		FROM `counter`
+		LIMIT 1
+	</select>
+	
+	<update id="updateCounter" parameterType="CounterDto">
+		UPDATE `counter` 
+		SET 
+			`counter` = #{counter},
+			`lastAccessed` = #{lastAccessed}
+	</update>
+</mapper>

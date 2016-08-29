@@ -1,0 +1,16 @@
+# Autogen file
+.DS_Store
+desktop.ini
+.gradle
+
+# Build directory
+/target
+/build
+/gen-external-apklibs
+gen
+
+# IDE specific files
+/.idea
+*.iml
+/local.properties
+/captures

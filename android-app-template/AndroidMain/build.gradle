@@ -1,0 +1,102 @@
+/*
+ * MyAwesomeApp project template
+ * Distributed under no licences and no warranty.
+ *
+ * @author Francesco Jo(nimbusob@gmail.com)
+ * @since 22 - Aug - 2016
+ */
+apply plugin: 'com.android.application'
+// Jack ->  apt plugin no longer needed in studio 2.2
+// http://android-developers.blogspot.com/2016/05/android-studio-22-preview-new-ui.html
+apply plugin: 'com.neenbedankt.android-apt'
+
+//noinspection GroovyMissingReturnStatement
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+
+    defaultConfig {
+        applicationId "com.example.hwan.myapplication"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    buildTypes {
+        // Developer/Lab testing version. Device is connected to PC in most cases
+        debug {
+            versionNameSuffix " (DEBUG)"
+            applicationIdSuffix ".debug"
+            debuggable true
+            minifyEnabled false
+        }
+
+        // Inhouse unstable version. Usually used for bugbashing, early field tests, etc.
+        alpha {
+            versionNameSuffix " (ALPHA)"
+            applicationIdSuffix ".alpha"
+            debuggable true
+            minifyEnabled false
+        }
+
+        // Public unstable version. Used as release candidates.
+        beta {
+            versionNameSuffix " (BETA)"
+            applicationIdSuffix ".beta"
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        // Public stable version.
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // Android essentials
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    // For using FragmentPagerAdapter which requires android.app.Fragment rather than android.support.v4.app.
+    compile 'com.android.support:support-v13:24.2.1'
+
+    // 3rd party
+    compile 'io.reactivex:rxjava:1.2.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.google.code.gson:gson:2.7'
+
+    /*
+     * Dagger 2 Dependencies
+     * https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2
+     */
+    apt 'com.google.dagger:dagger-compiler:2.7'
+    compile 'com.google.dagger:dagger:2.7'
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    /*
+     * Butterknife Dependencies
+     * http://jakewharton.github.io/butterknife/
+     */
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+
+    // Unit testing support
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-all:1.10.19"
+    testCompile "org.robolectric:robolectric:3.1.2"
+}
+
+// Add to the bottom of the file
+//apply plugin: 'com.google.gms.google-services'

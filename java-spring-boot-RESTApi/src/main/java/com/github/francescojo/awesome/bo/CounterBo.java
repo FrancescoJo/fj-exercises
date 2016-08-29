@@ -1,7 +1,7 @@
 /*
- * @(#)CounterBo.java $Version Friday 26 - Aug. - 2016.
+ * MyAwesomeApp project template
  *
- * Please read licence.txt on project root for licence details.
+ * Distributed under no licences and no warranty.
  */
 package com.github.francescojo.awesome.bo;
 
@@ -13,6 +13,7 @@ import com.github.francescojo.awesome.sqlmap.CounterSqlMap;
 
 /**
  * @author Francesco Jo(nimbusob@gmail.com)
+ * @since 22 - Aug - 2016
  */
 @Component
 public class CounterBo {

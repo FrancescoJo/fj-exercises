@@ -1,7 +1,7 @@
 /*
- * @(#)CounterDto.java $Version Friday 26 - Aug. - 2016.
+ * MyAwesomeApp project template
  *
- * Please read licence.txt on project root for licence details.
+ * Distributed under no licences and no warranty.
  */
 package com.github.francescojo.awesome.dto;
 
@@ -9,6 +9,7 @@ import java.sql.Date;
 
 /**
  * @author Francesco Jo(nimbusob@gmail.com)
+ * @since 22 - Aug - 2016
  */
 public class CounterDto {
 	private int counter;

@@ -1,7 +1,7 @@
 /*
- * @(#)ApplicationConfig.java $Version Friday 26 - Aug. - 2016.
+ * MyAwesomeApp project template
  *
- * Please read licence.txt on project root for licence details.
+ * Distributed under no licences and no warranty.
  */
 package com.github.francescojo.awesome;
 
@@ -30,8 +30,8 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * @author Francesco Jo
- * @since 21 - Dec - 2014
+ * @author Francesco Jo(nimbusob@gmail.com)
+ * @since 22 - Aug - 2016
  */
 @Configuration
 @MapperScan("com.github.francescojo.awesome.sqlmap")

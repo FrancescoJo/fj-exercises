@@ -1,15 +1,21 @@
+/*
+ * MyAwesomeApp project template
+ *
+ * Distributed under no licences and no warranty.
+ */
 package com.github.francescojo.awesome.controller;
+
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.github.francescojo.awesome.controller.IndexController;
-
-import static org.junit.Assert.*;
-
+/**
+ * @author Francesco Jo(nimbusob@gmail.com)
+ * @since 22 - Aug - 2016
+ */
 public class HelloControllerTest {
 	@Test
-	public void testSomeLibraryMethod() {
-		IndexController classUnderTest = new IndexController();
-		assertEquals("index.jsp", classUnderTest.root(null));
+	public void testRoot() {
+		fail("Implement this test first");
 	}
 }

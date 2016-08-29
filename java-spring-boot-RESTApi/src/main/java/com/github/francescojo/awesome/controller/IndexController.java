@@ -1,3 +1,8 @@
+/*
+ * MyAwesomeApp project template
+ *
+ * Distributed under no licences and no warranty.
+ */
 package com.github.francescojo.awesome.controller;
 
 import java.sql.Date;
@@ -13,6 +18,7 @@ import com.github.francescojo.awesome.dto.CounterDto;
 
 /**
  * @author Francesco Jo(nimbusob@gmail.com)
+ * @since 22 - Aug - 2016
  */
 @RestController
 public class IndexController {

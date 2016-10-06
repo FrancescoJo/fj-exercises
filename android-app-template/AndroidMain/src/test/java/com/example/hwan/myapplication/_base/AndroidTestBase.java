@@ -22,6 +22,7 @@ import org.robolectric.annotation.Config;
  * @author Francesco Jo(nimbusob@gmail.com)
  * @since 22 - Aug - 2016
  */
+// Can we change this to rule based?
 @Ignore("Test base class with Android resources")
 @RunWith(MyRobolectricGradleTestRunner.class)
 @Config(application = MyApplication.class,

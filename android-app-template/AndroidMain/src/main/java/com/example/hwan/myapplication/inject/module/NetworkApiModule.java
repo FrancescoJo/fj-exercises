@@ -3,7 +3,7 @@
  *
  * Distributed under no licences and no warranty.
  */
-package com.example.hwan.myapplication.dagger2.module;
+package com.example.hwan.myapplication.inject.module;
 
 import com.example.hwan.myapplication.api.ApiService;
 
@@ -25,7 +25,7 @@ public class NetworkApiModule {
 
     @Provides
     @Singleton
-    public Retrofit providesServiceApiClient() {
+    Retrofit providesServiceApiClient() {
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
@@ -35,7 +35,7 @@ public class NetworkApiModule {
 
     @Provides
     @Singleton
-    public ApiService providesApiService() {
+    ApiService providesApiService() {
         return providesServiceApiClient().create(ApiService.class);
     }
 }

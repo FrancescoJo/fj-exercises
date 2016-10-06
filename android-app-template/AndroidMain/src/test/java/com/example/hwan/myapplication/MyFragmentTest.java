@@ -6,6 +6,7 @@
 package com.example.hwan.myapplication;
 
 import com.example.hwan.myapplication._base.AndroidTestBase;
+import com.example.hwan.myapplication.ui.base.BaseFragment;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,29 +26,32 @@ import static org.junit.Assert.assertEquals;
  * @since 20 - Sep - 2016
  */
 public class MyFragmentTest extends AndroidTestBase {
-    private FragmentController<MyFragment> fragmentController;
-    private MyFragment fragment;
+    private FragmentController<BaseFragment> fragmentController;
+    private BaseFragment fragment;
 
     @Before
     public void setUp() throws Exception {
-        this.fragmentController = Robolectric.buildFragment(MyFragment.class);
+        this.fragmentController = Robolectric.buildFragment(BaseFragment.class);
         this.fragment = fragmentController.get();
     }
 
     @Test
     public void testAllEmits() throws Exception {
-        Observable<Integer> lifecycle = fragment.getObservableLifecycle(MyFragment.LifeCycle.ON_STOP);
+        Observable<Integer> lifecycle =
+                fragment.getObservableLifecycle(BaseFragment.LifeCycle.ON_STOP);
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         lifecycle.subscribe(testSubscriber);
 
         fragmentController.attach();
-        assertEquals("Emission must not be completed on onAttach", 0, testSubscriber.getCompletions());
+        assertEquals("Emission must not be completed on onAttach", 0,
+                     testSubscriber.getCompletions());
 
         fragmentController.create();
         fragmentController.start();
         fragmentController.resume();
         fragmentController.pause();
-        assertEquals("Emission must not be completed before onStop", 0, testSubscriber.getCompletions());
+        assertEquals("Emission must not be completed before onStop", 0,
+                     testSubscriber.getCompletions());
 
         fragmentController.stop();
         assertEquals("Emission must be completed on onStop", 1, testSubscriber.getCompletions());
@@ -56,14 +60,15 @@ public class MyFragmentTest extends AndroidTestBase {
         assertEquals("No emissions after onStop", 1, testSubscriber.getValueCount());
 
         @SuppressWarnings("unchecked")
-        List<Integer> expected = Collections.singletonList(MyFragment.LifeCycle.ON_STOP);
+        List<Integer> expected = Collections.singletonList(BaseFragment.LifeCycle.ON_STOP);
         List<Integer> actual = testSubscriber.getOnNextEvents();
         assertListEquals("", expected, actual);
     }
 
     @Test
     public void testNoEmitsBeforeCreate() throws Exception {
-        Observable<Integer> lifecycle = fragment.getObservableLifecycle(MyFragment.LifeCycle.ON_CREATE);
+        Observable<Integer> lifecycle =
+                fragment.getObservableLifecycle(BaseFragment.LifeCycle.ON_CREATE);
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         lifecycle.subscribe(testSubscriber);
 

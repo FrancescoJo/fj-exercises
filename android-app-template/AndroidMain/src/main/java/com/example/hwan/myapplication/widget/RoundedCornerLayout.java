@@ -23,36 +23,37 @@ import com.example.hwan.myapplication.R;
 
 /**
  * @author Francesco Jo(nimbusob@gmail.com)
- * @since 30 - Sep - 2016
  * @see <a href="http://stackoverflow.com/questions/26074784/how-to-make-a-view-in-android-with-rounded-corners">
  * How to make a view in android with rounded corners</a> in stackoverflow.com
  * @see <a href="https://developer.android.com/reference/android/view/View.html#setClipToOutline(boolean)">
- *     android.view.View#setClipToOutline(boolean)</a>
+ * android.view.View#setClipToOutline(boolean)</a>
+ * @since 30 - Sep - 2016
  */
 public class RoundedCornerLayout extends FrameLayout {
     private static final float DEFAULT_CORNER_RADIUS = 2.0f;
     private Bitmap maskBitmap;
-    private Paint paint, maskPaint;
+    private Paint  paint, maskPaint;
     private float cornerRadius;
 
-    public RoundedCornerLayout(Context context) {
+    public RoundedCornerLayout(final Context context) {
         this(context, null);
     }
 
-    public RoundedCornerLayout(Context context, AttributeSet attrs) {
+    public RoundedCornerLayout(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RoundedCornerLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public RoundedCornerLayout(final Context context, final AttributeSet attrs, final int style) {
+        super(context, attrs, style);
         init(attrs);
     }
 
-    private void init(AttributeSet attrs) {
-        Context context = getContext();
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundedCornerLayout);
-        float radius = a.getDimension(R.styleable.RoundedCornerLayout_cornerRadius, DEFAULT_CORNER_RADIUS);
+    private void init(final AttributeSet attrs) {
+        final Context context = getContext();
+        final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoundedCornerLayout);
+        final float radius =
+                a.getDimension(R.styleable.RoundedCornerLayout_cornerRadius, DEFAULT_CORNER_RADIUS);
         a.recycle();
 
         cornerRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, radius, metrics);
@@ -66,9 +67,10 @@ public class RoundedCornerLayout extends FrameLayout {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        Bitmap offscreenBitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas offscreenCanvas = new Canvas(offscreenBitmap);
+    public void draw(final Canvas canvas) {
+        final Bitmap offscreenBitmap =
+                Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
+        final Canvas offscreenCanvas = new Canvas(offscreenBitmap);
 
         super.draw(offscreenCanvas);
 
@@ -80,11 +82,11 @@ public class RoundedCornerLayout extends FrameLayout {
         canvas.drawBitmap(offscreenBitmap, 0f, 0f, paint);
     }
 
-    private Bitmap createMask(int width, int height) {
-        Bitmap mask = Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8);
-        Canvas canvas = new Canvas(mask);
+    private Bitmap createMask(final int width, final int height) {
+        final Bitmap mask = Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8);
+        final Canvas canvas = new Canvas(mask);
 
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.WHITE);
 
         canvas.drawRect(0, 0, width, height, paint);

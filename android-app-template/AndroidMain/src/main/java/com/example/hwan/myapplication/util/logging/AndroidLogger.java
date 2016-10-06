@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.hwan.myapplication.util.ArrayUtils;
+import com.example.hwan.myapplication.util.lang.EmptyCheckUtils;
 
 import java.util.Arrays;
 
@@ -25,134 +25,134 @@ class AndroidLogger implements Logger {
     protected static final String NULL = "null";
     private final String tagName;
 
-    AndroidLogger(String tagName) {
+    AndroidLogger(final String tagName) {
         this.tagName = tagName;
     }
 
     @Override
-    public void v(@NonNull String format, Object... args) {
+    public void v(final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.VERBOSE)) {
-            String logMsg = formatString(format, args);
+            final String logMsg = formatString(format, args);
             Log.v(tagName, logMsg);
         }
     }
 
     @Override
-    public void v(Throwable t, @NonNull String format, Object... args) {
+    public void v(final Throwable t, final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.VERBOSE)) {
-            String logMsg = formatString(format, args);
+            final String logMsg = formatString(format, args);
             Log.v(tagName, logMsg, t);
         }
     }
 
     @Override
-    public void v(Object obj) {
+    public void v(final Object obj) {
         if (Log.isLoggable(tagName, Log.VERBOSE)) {
-            String logMsg = obj == null ? NULL : obj.toString();
+            final String logMsg = obj == null ? NULL : obj.toString();
             Log.v(tagName, logMsg);
         }
     }
 
     @Override
-    public void d(@NonNull String format, Object... args) {
+    public void d(final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.DEBUG)) {
-            String logMsg = formatString(format, args);
+            final String logMsg = formatString(format, args);
             Log.d(tagName, logMsg);
         }
     }
 
     @Override
-    public void d(Throwable t, @NonNull String format, Object... args) {
+    public void d(final Throwable t, final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.DEBUG)) {
-            String logMsg = formatString(format, args, t);
+            final String logMsg = formatString(format, args, t);
             Log.d(tagName, logMsg);
         }
     }
 
     @Override
-    public void d(Object obj) {
+    public void d(final Object obj) {
         if (Log.isLoggable(tagName, Log.DEBUG)) {
-            String logMsg = obj == null ? NULL : obj.toString();
+            final String logMsg = obj == null ? NULL : obj.toString();
             Log.d(tagName, logMsg);
         }
     }
 
     @Override
-    public void i(@NonNull String format, Object... args) {
+    public void i(final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.INFO)) {
-            String logMsg = formatString(format, args);
+            final String logMsg = formatString(format, args);
             Log.i(tagName, logMsg);
         }
     }
 
     @Override
-    public void i(Throwable t, @NonNull String format, Object... args) {
+    public void i(final Throwable t, final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.INFO)) {
-            String logMsg = formatString(format, args, t);
+            final String logMsg = formatString(format, args, t);
             Log.i(tagName, logMsg);
         }
     }
 
     @Override
-    public void i(Object obj) {
+    public void i(final Object obj) {
         if (Log.isLoggable(tagName, Log.INFO)) {
-            String logMsg = obj == null ? NULL : obj.toString();
+            final String logMsg = obj == null ? NULL : obj.toString();
             Log.i(tagName, logMsg);
         }
     }
 
     @Override
-    public void w(@NonNull String format, Object... args) {
+    public void w(final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.WARN)) {
-            String logMsg = formatString(format, args);
+            final String logMsg = formatString(format, args);
             Log.w(tagName, logMsg);
         }
     }
 
     @Override
-    public void w(Throwable t, @NonNull String format, Object... args) {
+    public void w(final Throwable t, final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.WARN)) {
-            String logMsg = formatString(format, args, t);
+            final String logMsg = formatString(format, args, t);
             Log.w(tagName, logMsg);
         }
     }
 
     @Override
-    public void w(Object obj) {
+    public void w(final Object obj) {
         if (Log.isLoggable(tagName, Log.WARN)) {
-            String logMsg = obj == null ? NULL : obj.toString();
+            final String logMsg = obj == null ? NULL : obj.toString();
             Log.w(tagName, logMsg);
         }
     }
 
     @Override
-    public void e(@NonNull String format, Object... args) {
+    public void e(final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.ERROR)) {
-            String logMsg = formatString(format, args);
+            final String logMsg = formatString(format, args);
             Log.e(tagName, logMsg);
         }
     }
 
     @Override
-    public void e(Throwable t, @NonNull String format, Object... args) {
+    public void e(final Throwable t, final @NonNull String format, final Object... args) {
         if (Log.isLoggable(tagName, Log.ERROR)) {
-            String logMsg = formatString(format, args, t);
+            final String logMsg = formatString(format, args, t);
             Log.e(tagName, logMsg);
         }
     }
 
     @Override
-    public void e(Object obj) {
+    public void e(final Object obj) {
         if (Log.isLoggable(tagName, Log.ERROR)) {
-            String logMsg = obj == null ? NULL : obj.toString();
+            final String logMsg = obj == null ? NULL : obj.toString();
             Log.e(tagName, logMsg);
         }
     }
 
     @Override
-    public void log(int priority, @NonNull String message, Throwable t) {
+    public void log(final int priority, final @NonNull String message, final Throwable t) {
         if (Log.isLoggable(tagName, priority)) {
-            switch(priority) {
+            switch (priority) {
                 case Log.VERBOSE:
                     Log.v(tagName, message, t);
                     break;
@@ -174,16 +174,17 @@ class AndroidLogger implements Logger {
                     } else {
                         Log.println(priority, tagName, message + '\n' + Log.getStackTraceString(t));
                     }
+                    break;
             }
         }
     }
 
-    private static String formatString(String format, Object... args) {
+    private static String formatString(final String format, final Object... args) {
         if (TextUtils.isEmpty(format)) {
             return NULL + ": " + Arrays.toString(args);
         }
 
-        if (ArrayUtils.isEmpty(args)) {
+        if (EmptyCheckUtils.isEmpty(args)) {
             return format;
         } else {
             return String.format(format, args);

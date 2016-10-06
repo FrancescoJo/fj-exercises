@@ -24,7 +24,8 @@ public class LogFactoryTest extends AndroidTestBase {
     public void testDefaultInstance() {
         Func1<String, Logger> defaultInstance = LogFactory.getLoggerFactory();
 
-        assertEquals("Default instance must be DEFAULT_ANDROID_LOGGER", defaultInstance, LogFactory.DEFAULT_ANDROID_LOGGER);
+        assertEquals("Default instance must be DEFAULT_ANDROID_LOGGER", defaultInstance,
+                     LogFactory.DEFAULT_ANDROID_LOGGER);
     }
 
     @Test
@@ -32,13 +33,16 @@ public class LogFactoryTest extends AndroidTestBase {
         assertEquals("Other tests must not affect single test cases", 0, LogFactory.LOGGERS.size());
 
         LogFactory.getLogger("test");
-        assertEquals("New logger must be created if logger pool is empty", 1, LogFactory.LOGGERS.size());
+        assertEquals("New logger must be created if logger pool is empty", 1,
+                     LogFactory.LOGGERS.size());
 
         LogFactory.getLogger("test");
-        assertEquals("Requesting a logger with same name must not increase logger pool size", 1, LogFactory.LOGGERS.size());
+        assertEquals("Requesting a logger with same name must not increase logger pool size", 1,
+                     LogFactory.LOGGERS.size());
 
         LogFactory.getLogger("newTest");
-        assertEquals("Logger with another new name will increase logger pool size", 2, LogFactory.LOGGERS.size());
+        assertEquals("Logger with another new name will increase logger pool size", 2,
+                     LogFactory.LOGGERS.size());
     }
 
     @Test
@@ -53,7 +57,8 @@ public class LogFactoryTest extends AndroidTestBase {
         LogFactory.setLoggerFactory(testInstanceFactory);
 
         Logger actual = LogFactory.getLogger("test");
-        assertEquals("Logger instance must be newly injected instanceFactory's.", mockLogger, actual);
+        assertEquals("Logger instance must be newly injected instanceFactory's.", mockLogger,
+                     actual);
     }
 
     @After

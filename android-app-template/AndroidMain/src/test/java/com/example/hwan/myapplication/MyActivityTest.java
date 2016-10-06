@@ -6,6 +6,7 @@
 package com.example.hwan.myapplication;
 
 import com.example.hwan.myapplication._base.AndroidTestBase;
+import com.example.hwan.myapplication.ui.base.AbstractBaseActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,26 +26,29 @@ import static org.junit.Assert.assertEquals;
  * @since 20 - Sep - 2016
  */
 public class MyActivityTest extends AndroidTestBase {
-    private ActivityController<MyActivity> activityController;
-    private MyActivity activity;
+    private ActivityController<AbstractBaseActivity> activityController;
+    private AbstractBaseActivity activity;
 
     @Before
     public void setUp() throws Exception {
-        this.activityController = Robolectric.buildActivity(MyActivity.class);
+        this.activityController = Robolectric.buildActivity(AbstractBaseActivity.class);
         this.activity = activityController.get();
     }
 
     @Test
     public void testAllEmits() throws Exception {
-        Observable<Integer> lifecycle = activity.getObservableLifecycle(MyActivity.LifeCycle.ON_RESUME);
+        Observable<Integer> lifecycle =
+                activity.getObservableLifecycle(AbstractBaseActivity.LifeCycle.ON_RESUME);
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         lifecycle.subscribe(testSubscriber);
 
         activityController.create();
-        assertEquals("Emission must not be completed on onCreate", 0, testSubscriber.getCompletions());
+        assertEquals("Emission must not be completed on onCreate", 0,
+                     testSubscriber.getCompletions());
 
         activityController.start();
-        assertEquals("Emission must not be completed on onStart", 0, testSubscriber.getCompletions());
+        assertEquals("Emission must not be completed on onStart", 0,
+                     testSubscriber.getCompletions());
 
         activityController.resume();
         assertEquals("Emission must be completed on onResume", 1, testSubscriber.getCompletions());
@@ -57,14 +61,15 @@ public class MyActivityTest extends AndroidTestBase {
         assertEquals("No emissions after onStop", 1, testSubscriber.getValueCount());
 
         @SuppressWarnings("unchecked")
-        List<Integer> expected = Collections.singletonList(MyActivity.LifeCycle.ON_RESUME);
+        List<Integer> expected = Collections.singletonList(AbstractBaseActivity.LifeCycle.ON_RESUME);
         List<Integer> actual = testSubscriber.getOnNextEvents();
         assertListEquals("", expected, actual);
     }
 
     @Test
     public void testNoEmitsBeforeCreate() throws Exception {
-        Observable<Integer> lifecycle = activity.getObservableLifecycle(MyActivity.LifeCycle.ON_CREATE);
+        Observable<Integer> lifecycle =
+                activity.getObservableLifecycle(AbstractBaseActivity.LifeCycle.ON_CREATE);
         TestSubscriber<Integer> testSubscriber = new TestSubscriber<>();
         lifecycle.subscribe(testSubscriber);
 

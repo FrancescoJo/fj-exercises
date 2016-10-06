@@ -1,3 +1,7 @@
+# Keystore file
+/settings/keystore/keystore-release.properties
+/settings/keystore/release.keystore
+
 # Autogen file
 .DS_Store
 desktop.ini

@@ -9,7 +9,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.example.hwan.myapplication.MyActivity;
+import com.example.hwan.myapplication.ui.base.AbstractBaseActivity;
 import com.example.hwan.myapplication._base.AndroidTestBase;
 import com.example.hwan.myapplication._base.ValueReference;
 
@@ -29,13 +29,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class ActivityLifecycleCallbacksBuilderTest extends AndroidTestBase {
     private ActivityLifecycleCallbacksBuilder builder;
-    private ActivityController<MyActivity> activityController;
+    private ActivityController<AbstractBaseActivity>    activityController;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         this.builder = new ActivityLifecycleCallbacksBuilder();
-        this.activityController = Robolectric.buildActivity(MyActivity.class);
+        this.activityController = Robolectric.buildActivity(AbstractBaseActivity.class);
     }
 
     @Test
@@ -151,7 +151,8 @@ public class ActivityLifecycleCallbacksBuilderTest extends AndroidTestBase {
                 }).build();
 
         getApplication().registerActivityLifecycleCallbacks(callback);
-        activityController.create().start().resume().pause().stop().saveInstanceState(new Bundle()).destroy();
+        activityController.create().start().resume().pause().stop().saveInstanceState(
+                new Bundle()).destroy();
         assertTrue("onActivityResumed callback must be invoked and value changed", assertRef.get());
         getApplication().unregisterActivityLifecycleCallbacks(callback);
     }

@@ -15,14 +15,6 @@ import org.robolectric.res.Fs;
 
 import java.io.File;
 
-import rx.Scheduler;
-import rx.functions.Action0;
-import rx.functions.Func1;
-import rx.plugins.RxJavaHooks;
-import rx.plugins.RxJavaPlugins;
-import rx.plugins.RxJavaSchedulersHook;
-import rx.schedulers.Schedulers;
-
 /**
  * Custom test runner for testing logic depend on Application#getResources()
  *
@@ -43,8 +35,10 @@ public class MyRobolectricGradleTestRunner extends RobolectricGradleTestRunner {
     protected AndroidManifest getAppManifest(Config config) {
         String basePath = new File(".").getAbsolutePath();
         String manifest = basePath + "/src/main/AndroidManifest.xml";
-        String res = basePath + String.format("/build/intermediates/res/merged/%1$s/%2$s", BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE);
+        String res = basePath + String.format("/build/intermediates/res/merged/%1$s/%2$s",
+                                              BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE);
         String asset = basePath + "/src/test/assets";
-        return new AndroidManifest(Fs.fileFromPath(manifest), Fs.fileFromPath(res), Fs.fileFromPath(asset));
+        return new AndroidManifest(Fs.fileFromPath(manifest), Fs.fileFromPath(res),
+                                   Fs.fileFromPath(asset));
     }
 }

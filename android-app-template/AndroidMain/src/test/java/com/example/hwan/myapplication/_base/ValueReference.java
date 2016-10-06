@@ -48,7 +48,8 @@ public class ValueReference<T> {
 
     /**
      * NOTE: This method returns the hash code of wrapped value. Not this class itself.
-     * @return  a hash code of wrapped value. 0 if wrapped value is <code>null</code>.
+     *
+     * @return a hash code of wrapped value. 0 if wrapped value is <code>null</code>.
      */
     @Override
     public int hashCode() {

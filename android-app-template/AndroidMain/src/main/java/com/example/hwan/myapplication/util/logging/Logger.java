@@ -13,35 +13,35 @@ import android.support.annotation.NonNull;
  */
 @SuppressWarnings("unused")
 public interface Logger {
-    void v(@NonNull String format, Object... args);
+    void v(final @NonNull String format, final Object... args);
 
-    void v(Throwable t, @NonNull String format, Object... args);
+    void v(final Throwable t, final @NonNull String format, final Object... args);
 
-    void v(Object obj);
+    void v(final Object obj);
 
-    void d(@NonNull String format, Object... args);
+    void d(final @NonNull String format, final Object... args);
 
-    void d(Throwable t, @NonNull String format, Object... args);
+    void d(final Throwable t, final @NonNull String format, final Object... args);
 
-    void d(Object obj);
+    void d(final Object obj);
 
-    void i(@NonNull String format, Object... args);
+    void i(final @NonNull String format, final Object... args);
 
-    void i(Throwable t, @NonNull String format, Object... args);
+    void i(final Throwable t, final @NonNull String format, final Object... args);
 
-    void i(Object obj);
+    void i(final Object obj);
 
-    void w(@NonNull String format, Object... args);
+    void w(final @NonNull String format, final Object... args);
 
-    void w(Throwable t, @NonNull String format, Object... args);
+    void w(final Throwable t, final @NonNull String format, final Object... args);
 
-    void w(Object obj);
+    void w(final Object obj);
 
-    void e(@NonNull String format, Object... args);
+    void e(final @NonNull String format, final Object... args);
 
-    void e(Throwable t, @NonNull String format, Object... args);
+    void e(final Throwable t, final @NonNull String format, final Object... args);
 
-    void e(Object obj);
+    void e(final Object obj);
 
-    void log(int priority, @NonNull String message, Throwable t);
+    void log(final int priority, final @NonNull String message, final Throwable t);
 }

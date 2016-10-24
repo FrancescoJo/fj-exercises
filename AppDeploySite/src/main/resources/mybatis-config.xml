@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="Integer" type="java.lang.Integer" />
+		<typeAlias alias="Long" type="java.lang.Long" />
+		<typeAlias alias="String" type="java.lang.String" />
+
+		<typeAlias alias="List" type="java.util.List" />
+
+		<typeAlias alias="PlatformDto" type="com.github.francescojo.appdeploy.dto.PlatformDto" />
+		<typeAlias alias="DistStageDto" type="com.github.francescojo.appdeploy.dto.DistStageDto" />
+		<typeAlias alias="AppDto" type="com.github.francescojo.appdeploy.dto.AppDto" />
+		<typeAlias alias="UploadHistoryDto" type="com.github.francescojo.appdeploy.dto.UploadHistoryDto" />
+	</typeAliases>
+</configuration>

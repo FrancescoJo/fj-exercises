@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.francescojo.appdeploy.sqlmap.UploadHistoryService">
+	<select id="selectUploadCountByAppId" resultType="Integer">
+		SELECT COUNT(*)
+		FROM `uploadHistory`
+		WHERE `appId` = #{appId}
+	</select>
+
+	<insert id="insert" parameterType="UploadHistoryDto">
+		INSERT INTO `uploadHistory` (
+			`appId`, `stageId`, `versionName`, `binaryName`, `description`, `tags`, `uploadTime`
+		) VALUES (
+			#{appId}, #{stageId}, #{versionName}, #{binaryName}, #{description}, #{tags}, #{uploadTime}
+		)
+	</insert>
+	
+	<select id="selectUploadCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(`id`)
+		FROM `uploadHistory`
+		WHERE `appId` = #{appId} AND
+			`stageId` = #{stageId}
+	</select>
+
+	<select id="selectOldestHistory" resultType="UploadHistoryDto">
+		SELECT *
+		FROM `uploadHistory`
+		WHERE `appId` = #{appId} AND
+			`stageId` = #{stageId}
+		ORDER BY `uploadTime` ASC
+		LIMIT #{count}
+	</select>
+
+	<delete id="deleteByIdList" parameterType="List">
+		DELETE FROM `uploadHistory`
+		WHERE `id` IN
+		<foreach open="(" close=")" collection="list" item="id" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="selectByIdList" parameterType="List" resultType="UploadHistoryDto">
+		SELECT *
+		FROM `uploadHistory`
+		WHERE `id` IN
+		<foreach open="(" close=")" collection="list" item="id" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="selectByAppId" parameterType="Long" resultType="UploadHistoryDto">
+		SELECT *
+		FROM `uploadHistory`
+		WHERE `appId` = #{appId}
+	</select>
+	
+	<select id="selectLatestHistory" resultType="UploadHistoryDto">
+		SELECT *
+		FROM `uploadHistory`
+		WHERE `appId` = #{appId} AND
+			`stageId` = #{stageId}
+		ORDER BY `uploadTime` DESC
+		LIMIT #{page}, #{limitCount}
+	</select>
+</mapper>

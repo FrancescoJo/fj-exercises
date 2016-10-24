@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.francescojo.appdeploy.sqlmap.DistStageService">
+	<select id="selectAll" resultType="DistStageDto">
+		SELECT *
+		FROM `distStages`
+	</select>
+
+	<select id="selectAllCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM `distStages`
+	</select>
+
+	<insert id="insert" parameterType="DistStageDto">
+		INSERT INTO `distStages` (
+			`name`, `description`, `preserveCount`
+		) VALUES (
+			#{name}, #{description}, #{preserveCount}
+		)
+	</insert>
+
+	<select id="selectByIdList" parameterType="List" resultType="DistStageDto">
+		SELECT *
+		FROM `distStages`
+		WHERE `id` IN
+		<foreach open="(" close=")" collection="list" item="id" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<update id="updateById" parameterType="DistStageDto">
+		UPDATE `distStages`
+		SET
+			`name` = #{distStage.name},
+			`description` = #{distStage.description},
+			`preserveCount` = #{distStage.preserveCount}
+		WHERE `id` = #{id}
+	</update>
+	
+	<delete id="deleteByIdList" parameterType="List">
+		DELETE FROM `distStages`
+		WHERE `id` IN
+		<foreach open="(" close=")" collection="list" item="id" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+</mapper>

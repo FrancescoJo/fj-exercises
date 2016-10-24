@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.francescojo.appdeploy.sqlmap.AppService">
+	<select id="selectAll" resultType="AppDto">
+		SELECT *
+		FROM `apps`
+	</select>
+
+	<insert id="insert" parameterType="AppDto">
+		INSERT INTO `apps` (
+			`iconName`, `name`, `description`, `stageIds`, `platformIds`, `authToken`
+		) VALUES (
+			#{iconName}, #{name}, #{description}, #{stageIds}, #{platformIds}, #{authToken}
+		)
+	</insert>
+	
+	<select id="selectByIdList" parameterType="List" resultType="AppDto">
+		SELECT *
+		FROM `apps`
+		WHERE `id` IN 
+		<foreach open="(" close=")" collection="list" item="id" separator=",">
+			#{id}
+		</foreach>
+	</select>
+	
+	<delete id="deleteById" parameterType="Long">
+		DELETE FROM `apps`
+		WHERE `id` = #{id}
+	</delete>
+	
+	<select id="selectAppCountByPlatformIds" parameterType="List">
+		SELECT COUNT(`id`)
+		FROM `apps`
+		WHERE `platformIds`
+		<foreach open="(" close=")" collection="list" item="id" separator=" OR ">
+			LIKE %#{id}%
+		</foreach>
+	</select>
+
+	<select id="selectById" parameterType="Long" resultType="AppDto">
+		SELECT *
+		FROM `apps`
+		WHERE `id` = #{id}
+	</select>
+</mapper>

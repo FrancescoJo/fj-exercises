@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.francescojo.appdeploy.sqlmap.PlatformService">
+	<select id="selectAll" resultType="PlatformDto">
+		SELECT *
+		FROM `platforms`
+	</select>
+
+	<select id="selectAllCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM `platforms`
+	</select>
+
+	<select id="selectByIdList" parameterType="List" resultType="PlatformDto">
+		SELECT *
+		FROM `platforms`
+		WHERE `id` IN
+		<foreach open="(" close=")" collection="list" item="id" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<insert id="insert" parameterType="PlatformDto">
+		INSERT INTO `platforms` (
+			`name`, `description`, `adminUrl`
+		) VALUES (
+			#{name}, #{description}, #{adminUrl}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="PlatformDto">
+		UPDATE `platforms`
+		SET
+			`name` = #{platform.name},
+			`description` = #{platform.description},
+			`adminUrl` = #{platform.adminUrl}
+		WHERE `id` = #{id}
+	</update>
+	
+	<delete id="deleteByIdList" parameterType="List">
+		DELETE FROM `platforms`
+		WHERE `id` IN
+		<foreach open="(" close=")" collection="list" item="id" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="site.title"><![CDATA[App distribution site]]></entry>
+	<entry key="site.list_of_apps"><![CDATA[List of my apps]]></entry>
+
+	<entry key="site.admin.ui.no_message_defined"><![CDATA[No message has defined. Please try again.]]></entry>
+	<entry key="site.admin.ui.app.no_app_selected"><![CDATA[No apps were selected.]]></entry>
+	<entry key="site.admin.ui.platform.no_platform_selected"><![CDATA[No platforms were selected.]]></entry>
+	<entry key="site.admin.ui.platform.do_you_want_to_apply_preset"><![CDATA[Want to apply selected preset?]]></entry>
+	<entry key="site.admin.ui.diststage.no_stage_selected"><![CDATA[No stages were selected.]]></entry>
+	<entry key="site.admin.ui.diststage.do_you_want_to_apply_preset"><![CDATA[Want to apply selected preset?]]></entry>
+	<entry key="site.admin.ui.uploadhistory.no_history_selected"><![CDATA[No upload histories were selected.]]></entry>
+
+	<entry key="msg.platform.added"><![CDATA[Platform is added.]]></entry>
+	<entry key="msg.platform.updated"><![CDATA[Platform is updated.]]></entry>
+	<entry key="msg.platform.deleted"><![CDATA[Platform is deleted.]]></entry>
+	<entry key="msg.dist_stage.added"><![CDATA[Distribution stage is added.]]></entry>
+	<entry key="msg.dist_stage.updated"><![CDATA[Distribution stage is updated.]]></entry>
+	<entry key="msg.dist_stage.deleted"><![CDATA[Distribution stage is deleted.]]></entry>
+	<entry key="msg.app.added"><![CDATA[App is added.]]></entry>
+	<entry key="msg.app.updated"><![CDATA[App is updated.]]></entry>
+	<entry key="msg.app.deleted"><![CDATA[App is deleted.]]></entry>
+	<entry key="msg.history.deleted"><![CDATA[Upload history is deleted.]]></entry>
+	
+	<entry key="confirm.app.delete_with_uploadhistory"><![CDATA[Chosen app has some upload histories. Are you sure?]]></entry>
+
+	<entry key="error.app.no_checked_dist_conds"><![CDATA[Neither distribution stages nor target platforms were selected.]]></entry>
+
+	<entry key="error.external.no_privileges"><![CDATA[Current user does not have access privileges to %s.]]></entry>
+	<entry key="error.external.bad_input"><![CDATA[Illegal input parameter provided.]]></entry>
+</properties>

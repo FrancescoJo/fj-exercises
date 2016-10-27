@@ -17,13 +17,13 @@ android {
     def settingsDir = "$project.rootDir/settings"
     def keyStoreDir = "$settingsDir/keystore"
 
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion "24.0.3"
 
     defaultConfig {
-        applicationId "com.example.hwan.myapplication"
+        applicationId "com.fj.android.template"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -113,27 +113,44 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Android essentials
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
     // For using FragmentPagerAdapter which requires android.app.Fragment rather than android.support.v4.app.
-    compile 'com.android.support:support-v13:24.2.1'
+    compile 'com.android.support:support-v13:25.0.0'
 
     // 3rd party
-    compile 'io.reactivex:rxjava:1.2.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.google.code.gson:gson:2.7'
     compile('com.google.code.findbugs:annotations:3.0.1') {
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
         exclude group: 'net.jcip', module: 'jcip-annotations'
     }
+
+    /*
+     * ReactiveX 2.0
+     */
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.0'
+    // https://github.com/JakeWharton/retrofit2-rxjava2-adapter
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+    /*
+     * LeakCanary
+     * https://github.com/square/leakcanary
+     */
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
     // https://github.com/grantland/android-autofittextview
     compile 'me.grantland:autofittextview:0.2.1'

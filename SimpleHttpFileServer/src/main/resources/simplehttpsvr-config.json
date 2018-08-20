@@ -1,0 +1,15 @@
+{
+  "server": {
+    "name": "SimpleHttpServer",
+    "port": 18080
+  },
+  "nameFilter": [
+    ".*", ".simplehttpsvr"
+  ],
+  "descriptions": [
+    {
+      "name": "*.md",
+      "remark": "Markdown Document"
+    }
+  ]
+}

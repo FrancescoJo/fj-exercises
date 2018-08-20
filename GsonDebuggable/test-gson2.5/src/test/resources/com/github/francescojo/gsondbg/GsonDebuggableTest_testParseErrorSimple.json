@@ -1,0 +1,12 @@
+{
+  "strValue": "hello, world!",
+  "shortValue": 1,
+  "intValue": "number",
+  "longValue": -1,
+  "floatValue": 0.5,
+  "doubleValue": 1.5,
+  "byteValue": 255,
+  "charValue": "x",
+  "boolValue": false,
+  "someObject": null
+}

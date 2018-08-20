@@ -1,0 +1,16 @@
+{
+  "strValue": "hello, world!",
+  "shortValue": 1,
+  "intValue": 1,
+  "longValue": -1,
+  "floatValue": 0.5,
+  "doubleValue": 1.5e+9,
+  "byteValue": 1,
+  "charValue": "c",
+  "boolValue": false,
+  "object": {
+    "str": "str",
+    "numInt": "numInt",
+    "intArray": [ 1, "a", 2 ]
+  }
+}

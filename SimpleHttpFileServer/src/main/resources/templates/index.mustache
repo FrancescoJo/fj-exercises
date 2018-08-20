@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index of {{homedir}}</title>
+    {{!--<!--suppress HtmlUnknownTarget -->--}}
+    <link rel="stylesheet" type="text/css" href="{{_PATH_STATIC}}styles.css" />
+    {{!--<!--suppress HtmlUnknownTarget -->--}}
+    <script type="text/javascript" src="{{_PATH_STATIC}}functions.js"></script>
+    <script type="text/javascript">
+    </script>
+</head>
+<body class="content-body">
+    <h1 class="title-h1">Index of {{homedir}}</h1>
+    <div class="table">
+        <div class="table-row table-header">
+            <div class="table-cell"><span class="table-header"></span></div>
+            <div class="table-cell"><span class="table-header">Name</span></div>
+            <div class="table-cell"><span class="table-header">Last modified</span></div>
+            <div class="table-cell"><span class="table-header">Size</span></div>
+            <div class="table-cell"><span class="table-header">Description</span></div>
+        </div>
+        {{#files}}
+        <div class="table-row">
+            <div class="table-cell"><img src="{{_PATH_STATIC_ICO}}{{iconName}}" /></div>
+            <div class="table-cell"><a href="{{path}}">{{name}}</a></div>
+            <div class="table-cell">{{lastModified}}</div>
+            <div class="table-cell">{{size}}</div>
+            <div class="table-cell">{{description}}</div>
+        </div>
+        {{/files}}
+    </div>
+    <div class="footer">
+        <address class="align-left">
+            {{_SERVER_NAME}} on {{_SERVER_DATE}} ({{_SERVER_TIMEZONE}})
+        </address>
+        <span class="align-right">
+            Request from {{_REQUEST_IP}} processed in {{_EXECUTION_TIME}} ms.
+        </span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.table {
+    border-collapse: collapse;
+    display: table;
+    width: 100%;
+    border-bottom: 2px solid #222222;
+}
+
+.table .table-row {
+    display: table-row;
+}
+
+.table .table-row.table-header {
+    border-bottom: 2px solid #222222;
+}
+
+.table .table-cell {
+    display: table-cell;
+}
+
+.footer .align-right {
+    float: right;
+}
+.footer .align-left {
+    float: left;
+}

@@ -1,0 +1,13 @@
+spring:
+  mustache:
+# Mustache default settings (MustacheAutoConfiguration in spring-boot 1.4.0)
+    enabled: true
+    cache: false
+    charset: UTF-8
+    prefix: classpath:/templates/
+# Mustache custom settings
+    suffix: .mustache
+
+logging:
+  level:
+    com.francescojo.simplehttpsvr: 'DEBUG'

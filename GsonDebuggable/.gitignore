@@ -1,0 +1,17 @@
+# OS desktop caching files
+.DS_Store
+desktop.ini
+
+# Intellij IDEA files
+.idea/
+*.iml
+
+# Java class files
+*.class
+bin/
+target/
+
+# Gradle files
+.gradle/
+build/
+

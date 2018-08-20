@@ -1,0 +1,8 @@
+{
+  "strValue": "hello, world!",
+  "intValue": 1,
+  "doubleValue": 1.5,
+  "boolValue": false,
+  "someObject": null,
+  "intArray": [ 1, 2, 3 ]
+}

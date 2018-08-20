@@ -1,0 +1,12 @@
+{
+  "strValue": "hello, world!",
+  "shortValue": "short",
+  "intValue": "number",
+  "longValue": "long",
+  "floatValue": "float",
+  "doubleValue": { "this" : "is double" },
+  "byteValue": "byte",
+  "charValue": "char",
+  "boolValue": { "boolean" : "no" },
+  "someObject": null
+}

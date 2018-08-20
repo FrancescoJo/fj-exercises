@@ -1,0 +1,6 @@
+<resources>
+    <plurals name="text_date_days_ago">
+        <item quantity="one">%1$d Tag her</item>
+        <item quantity="other">Vor %1$d Tagen</item>
+    </plurals>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="viewer_mode_entries">
+        <item>Vertical scrolling</item>
+        <item>Vertical paging</item>
+        <item>Horizontal paging</item>
+    </string-array>
+
+    <string-array name="viewer_mode_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+</resources>

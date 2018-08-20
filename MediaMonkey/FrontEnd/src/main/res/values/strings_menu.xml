@@ -1,0 +1,10 @@
+<resources>
+    <string name="menu_app_setings">MediaMonkey settings</string>
+    <string name="menu_plugin_load">Load plugin</string>
+    <string name="menu_plugin_info">Plugin info.</string>
+    <string name="menu_plugin_settings">Plugin settings</string>
+    <string name="menu_help_oss">Open Source Software Licences</string>
+    <string name="menu_help_about">About MediaMonkey</string>
+    <string name="menu_viewer_rotate">Rotate screen</string>
+    <string name="menu_viewer_font">Adjust text size</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/eng_export_database"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/settings_item_padding_horiz"
+            android:paddingRight="@dimen/settings_item_padding_horiz"
+            android:text="Export database"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="@dimen/text_size_medium"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/grey_a9"/>
+    </LinearLayout>
+
+</ScrollView>

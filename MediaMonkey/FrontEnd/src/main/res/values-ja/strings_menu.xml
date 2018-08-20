@@ -1,0 +1,10 @@
+<resources>
+    <string name="menu_app_setings">MediaMonkey設定</string>
+    <string name="menu_plugin_load">プラグイン読み込む</string>
+    <string name="menu_plugin_info">プラグイン情報</string>
+    <string name="menu_plugin_settings">プラグイン設定</string>
+    <string name="menu_help_oss">オープンソースライセンス</string>
+    <string name="menu_help_about">MediaMonkey情報</string>
+    <string name="menu_viewer_rotate">スクリーン回転</string>
+    <string name="menu_viewer_font">テキストサイズ調整</string>
+</resources>

@@ -1,0 +1,181 @@
+/*
+ * MediaMonkey Frontend build file
+ * Licenced under Apache license 2.0. Read LICENSE for details.
+ *
+ * @author Francesco Jo(nimbusob@gmail.com)
+ * @since 22 - Nov - 2016
+ */
+apply plugin: "com.android.application"
+apply plugin: "com.neenbedankt.android-apt"
+
+apply from: "$project.rootDir/settings/quality/java/quality.gradle"
+
+android {
+    def settingsDir = "$project.rootDir/settings"
+    def keyStoreDir = "$settingsDir/keystore"
+
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.fj.android.mediamonkey"
+        minSdkVersion 17
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    signingConfigs {
+        debug {
+            storeFile file("$keyStoreDir/debug.keystore")
+            storePassword "android"
+            keyAlias "AndroidDebugKey"
+            keyPassword "android"
+        }
+
+        release {
+            def keystorePropsFile = file("$keyStoreDir/keystore-release.properties")
+            def keystoreProps = new Properties()
+            keystoreProps.load(new FileInputStream(keystorePropsFile))
+            storeFile file(keystoreProps["storeFile"])
+            storePassword keystoreProps["storePass"]
+            keyAlias keystoreProps["keyAlias"]
+            keyPassword keystoreProps["keyPass"]
+        }
+    }
+
+    buildTypes {
+        /*
+         * Developer/Lab testing version. Device is connected to PC in most cases
+         * (Local build)
+         */
+        debug {
+            versionNameSuffix " (DEBUG)"
+            applicationIdSuffix ".debug"
+            debuggable true
+            minifyEnabled false
+        }
+
+        /*
+         * Inhouse unstable version. Usually used for bugbashing, early field tests, etc.
+         * (Integrated build)
+         */
+        alpha {
+            signingConfig signingConfigs.debug
+            versionNameSuffix " (ALPHA)"
+            applicationIdSuffix ".alpha"
+            debuggable true
+            minifyEnabled false
+        }
+
+        /*
+         * Public unstable version. Used as release candidates.
+         * (Integrated release build)
+         */
+        beta {
+            signingConfig signingConfigs.release
+            versionNameSuffix " (BETA)"
+            applicationIdSuffix ".beta"
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        /*
+         * Public stable version.
+         * (Integrated release build)
+         */
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        /*
+         * Don't put 'src/main/res' to srcDirs property, it will be included automatically
+         * (Tested with Android build tools 24.0.2)
+         */
+        alpha {
+            java.srcDirs = ['src/debug/java']
+            res.srcDirs = ['src/debug/res']
+        }
+
+        beta {
+            java.srcDirs = ['src/release/java']
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    //noinspection GroovyMissingReturnStatement
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    // Android essentials
+    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    // For using FragmentPagerAdapter which requires android.app.Fragment rather than android.support.v4.app.Fragment
+    compile 'com.android.support:support-v13:25.1.0'
+
+    /*
+     * ReactiveX 2.0
+     */
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.0'
+
+    /*
+     * LeakCanary
+     * https://github.com/square/leakcanary
+     */
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    /*
+     * Dagger 2 Dependencies
+     * https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2
+     */
+    apt 'com.google.dagger:dagger-compiler:2.7'
+    compile 'com.google.dagger:dagger:2.7'
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    /*
+     * Butterknife Dependencies
+     * http://jakewharton.github.io/butterknife/
+     */
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+
+    // Other libraries
+    compile 'com.jakewharton.timber:timber:4.3.1'
+    compile 'com.facebook.fresco:fresco:1.0'
+    compile('com.google.code.findbugs:annotations:3.0.1') {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+        exclude group: 'net.jcip', module: 'jcip-annotations'
+    }
+
+    // Unit testing support
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    testCompile 'org.robolectric:robolectric:3.1.2'
+    testCompile 'javax.inject:javax.inject:1'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile project(':MediaMonkeyPluginSdk')
+    compile project(':MediaMonkeyPluginImpl')
+}

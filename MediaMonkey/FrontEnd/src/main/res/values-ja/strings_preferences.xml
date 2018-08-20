@@ -1,0 +1,5 @@
+<resources>
+    <string name="pref_group_viewer">ビューアの設定</string>
+    <string name="pref_group_cache">キャッシュ設定</string>
+    <string name="pref_viewer_mode">ビューアモード</string>
+</resources>

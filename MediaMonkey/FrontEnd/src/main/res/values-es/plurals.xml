@@ -1,0 +1,6 @@
+<resources>
+    <plurals name="text_date_days_ago">
+        <item quantity="one">Hace %1$d día</item>
+        <item quantity="other">Hace %1$d días</item>
+    </plurals>
+</resources>

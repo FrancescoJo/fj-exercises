@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/menu_drawer_plugins">
+        <item
+            android:id="@+id/menu_drawer_plugin_info"
+            android:title="@string/menu_plugin_info"
+            android:enabled="false" />
+        <item
+            android:id="@+id/menu_drawer_plugin_load"
+            android:title="@string/menu_plugin_load" />
+        <item
+            android:id="@+id/menu_drawer_plugin_settings"
+            android:title="@string/menu_plugin_settings" />
+    </group>
+
+    <group
+        android:id="@+id/menu_drawer_app">
+        <item
+            android:id="@+id/menu_drawer_app_settings"
+            android:title="@string/menu_app_setings" />
+    </group>
+
+    <group
+        android:id="@+id/menu_drawer_help">
+
+        <item
+            android:id="@+id/menu_drawer_help_oss"
+            android:title="@string/menu_help_oss" />
+        <item
+            android:id="@+id/menu_drawer_help_about"
+            android:title="@string/menu_help_about" />
+    </group>
+</menu>

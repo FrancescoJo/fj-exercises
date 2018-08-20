@@ -1,0 +1,6 @@
+<resources>
+    <string name="pref_key_viewer_mode" translatable="false">viewer_mode</string>
+    <string name="pref_group_viewer">Viewer settings</string>
+    <string name="pref_group_cache">Cache settings</string>
+    <string name="pref_viewer_mode">Viewer mode</string>
+</resources>

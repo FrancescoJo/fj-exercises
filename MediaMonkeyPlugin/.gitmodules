@@ -1,0 +1,3 @@
+[submodule "MediaMonkeyPluginSdk"]
+	path = MediaMonkeyPluginSdk
+	url = https://github.com/FrancescoJo/fj-exercises/MediaMonkeyPluginSdk.git

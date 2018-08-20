@@ -1,0 +1,3 @@
+<resources>
+    <string name="str_oss_file_uri" translatable="false">file:///android_asset/oss_notice.html</string>
+</resources>

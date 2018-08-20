@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#893700</color>
+    <color name="colorPrimaryDark">#6D2C00</color>
+    <color name="colorAccent">#3F51B5</color>
+    <color name="colorAccentLight">#3F7FFF</color>
+    <color name="colorTextDefault">@color/black_00</color>
+    <color name="colorTextDefaultSub">@color/grey_7f</color>
+
+    <color name="bg_menu_top">@color/grey_ee</color>
+</resources>

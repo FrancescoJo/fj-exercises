@@ -1,0 +1,23 @@
+TODO: List of TO-DOs
+
+1. RecyclerView as ViewPager
+https://github.com/lsjwzh/RecyclerViewPager
+
+Vertical viewPager
+http://stackoverflow.com/questions/13477820/android-vertical-viewpager
+
+in AbstractViewerFragment
+
+
+2. Post related threads / reply
+
+
+3. App content browsing mode
+mode 1 : hierarchical (category -> content -> episode), mode 2 : combined (category + content)
+
+
+4. Custom view injection from plugins
+
+
+5. Grab-n-run
+https://github.com/lukeFalsina/Grab-n-Run

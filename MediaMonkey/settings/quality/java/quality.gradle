@@ -1,0 +1,83 @@
+/*
+ * MyAwesomeApp project template
+ * Distributed under no licences and no warranty.
+ *
+ * @author Francesco Jo(nimbusob@gmail.com)
+ * @since 09 - Oct - 2016
+ */
+apply plugin: "findbugs"
+apply plugin: "pmd"
+
+def qualityConfigDir = "$project.rootDir/settings/quality/java";
+def reportsDir = "$project.buildDir/reports"
+
+check.dependsOn "findbugs", "pmd"
+
+task findbugs(type: FindBugs,
+        group: "Verification",
+        description: "Inspect java bytecode for bugs",
+        dependsOn: ["compileDebugSources"]) {
+
+    ignoreFailures = true
+    effort = "max"
+    reportLevel = "medium"
+
+    classes = files("$project.buildDir/intermediates/classes")
+    excludeFilter = file("$qualityConfigDir/findbugs-android-exclude.xml")
+    source = files("src/main/java")
+    classpath = files()
+
+    reports {
+        // Only one of HTML or XML can be turned on at the same time
+        html.enabled = true
+        xml.enabled = false
+        xml.withMessages = true
+
+        html.destination = "$reportsDir/findbugs-report.html"
+        xml.destination = "$reportsDir/findbugs-report.xml"
+    }
+}
+
+task pmd(type: Pmd,
+        group: "Verification",
+        description: "Inspect sourcecode for bugs") {
+    ruleSetFiles = files("$qualityConfigDir/pmd-ruleset-android.xml")
+    ignoreFailures = true
+    source = files("src/main/java")
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+
+        xml.destination "$reportsDir/pmd-report.xml"
+        html.destination "$reportsDir/pmd-report.html"
+    }
+}
+
+//android.applicationVariants.all { variant ->
+//    task("findbugs${variant.name.capitalize()}",
+//          type: FindBugs,
+//          group: "Verification",
+//          description: "Inspect java bytecode for bugs",
+//          dependsOn: ['compileDebugSources']) {
+//
+//        ignoreFailures = true
+//        effort = "max"
+//        reportLevel = "medium"
+//
+//        classes = files("$project.buildDir/intermediates/classes")
+//        excludeFilter = file("$qualityConfigDir/findbugs-android-exclude.xml")
+//        source = files("src/main/java")
+//        classpath = files()
+//
+//        reports {
+//            // Only one of HTML or XML can be turned on at the same time
+//            html.enabled = false
+//            xml.enabled = true
+//            xml.withMessages = true
+//
+//            html.destination = "$reportsDir/findbugs-report.html"
+//            xml.destination = "$reportsDir/findbugs-report.xml"
+//        }
+//    }
+//}

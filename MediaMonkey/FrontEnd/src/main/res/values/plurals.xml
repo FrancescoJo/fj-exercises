@@ -1,0 +1,7 @@
+<resources>
+    <plurals name="text_date_days_ago">
+        <item quantity="zero">%1$d day ago</item>
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
+</resources>

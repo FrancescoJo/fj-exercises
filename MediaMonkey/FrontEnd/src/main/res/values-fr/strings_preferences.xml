@@ -1,0 +1,5 @@
+<resources>
+    <string name="pref_group_viewer">Paramètres du visualiseur</string>
+    <string name="pref_group_cache">Paramètres du cache</string>
+    <string name="pref_viewer_mode">Modes de visualiseur</string>
+</resources>

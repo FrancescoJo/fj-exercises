@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mmplugin>
+    <!-- The most important field, must not be empty -->
+    <version>
+        <!-- Must be an integer -->
+        <major>0</major>
+        <!-- Must be an integer -->
+        <minor>1</minor>
+        <!-- Must be an integer -->
+        <build>1</build>
+        <!-- Empty or any string < 16 letters -->
+        <name>noop</name>
+    </version>
+
+    <!-- Name of this plugin, must not be empty -->
+    <name>MediaMonkeyPlugin Skeleton</name>
+
+    <!--
+        Package name of your implementation, must not be empty
+        MediaMonkey will search all class files under this package name
+    -->
+    <package>com.mediamonkey.android.plugin</package>
+
+    <!-- Your name, leave it to blank if you don't want to reveal it -->
+    <author>Francesco Jo</author>
+
+    <!-- Your email address, leave it to blank if you don't want to reveal it -->
+    <email>nimbusob@gmail.com</email>
+
+    <!--
+         Creation date, leave it to blank if you don't want to reveal it
+         Must be ISO-8601 format(yyyy-MM-dd), for example, 1982-11-12
+     -->
+    <date>2016-11-24</date>
+
+    <!-- Plugin description -->
+    <description>
+        No-op implementation of MediaMonkey plugin.
+    </description>
+</mmplugin>

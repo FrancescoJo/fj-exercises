@@ -1,0 +1,10 @@
+<resources>
+    <string name="menu_app_setings">MediaMonkey 설정</string>
+    <string name="menu_plugin_load">플러그인 탑재</string>
+    <string name="menu_plugin_info">플러그인 정보</string>
+    <string name="menu_plugin_settings">플러그인 설정</string>
+    <string name="menu_help_oss">오픈 소스 라이센스</string>
+    <string name="menu_help_about">MediaMonkey 정보</string>
+    <string name="menu_viewer_rotate">화면 회전</string>
+    <string name="menu_viewer_font">글자 크기 조절</string>
+</resources>

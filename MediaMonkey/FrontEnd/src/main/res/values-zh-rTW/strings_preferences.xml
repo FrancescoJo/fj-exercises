@@ -1,0 +1,5 @@
+<resources>
+    <string name="pref_group_viewer">查看器設置</string>
+    <string name="pref_group_cache">緩存設置</string>
+    <string name="pref_viewer_mode">瀏覽器模式</string>
+</resources>

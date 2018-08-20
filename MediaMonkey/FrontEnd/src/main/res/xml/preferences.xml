@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_group_viewer">
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/pref_viewer_mode"
+            android:entries="@array/viewer_mode_entries"
+            android:entryValues="@array/viewer_mode_values"
+            android:key="@string/pref_key_viewer_mode"
+            android:title="@string/pref_viewer_mode"/>
+    </PreferenceCategory>
+</PreferenceScreen>

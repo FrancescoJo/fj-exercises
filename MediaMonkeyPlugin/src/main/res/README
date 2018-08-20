@@ -1,0 +1,2 @@
+Do not use resources in this directory via R.class; Android is unable to load
+AAR files on runtime and your access attempt to resources will cause a RuntimeException!

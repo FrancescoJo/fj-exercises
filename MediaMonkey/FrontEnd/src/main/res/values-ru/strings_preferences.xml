@@ -1,0 +1,5 @@
+<resources>
+    <string name="pref_group_viewer">Настройки просмотрщик</string>
+    <string name="pref_group_cache">Настройки кэша</string>
+    <string name="pref_viewer_mode">Просмотрщик мод</string>
+</resources>

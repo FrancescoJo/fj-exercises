@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="244dp"
+              android:background="@drawable/selector_bg_main_item"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/default_item_padding"
+              android:paddingLeft="@dimen/default_item_padding"
+              android:paddingRight="@dimen/default_item_padding"
+              android:paddingTop="@dimen/default_item_padding">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_main_category_item"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginBottom="@dimen/default_ui_element_gap_vert"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@+id/layout_main_category_item_info_misc">
+
+            <TextView
+                android:id="@+id/txt_main_category_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="@dimen/text_size_medium"/>
+
+            <TextView
+                android:id="@+id/txt_main_category_item_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/default_ui_element_gap_vert"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/colorTextDefaultSub"
+                android:textSize="@dimen/text_size_small"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_main_category_item_info_misc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <!-- Sorry, no accessibility support at this moment :( -->
+            <ImageView
+                android:id="@+id/img_main_category_item_bookmarked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_ui_element_gap_vert"
+                android:src="@drawable/selector_fg_ico_star"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:id="@+id/txt_main_category_item_browse_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_ui_element_gap_vert"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="@dimen/text_size_small"/>
+
+            <TextView
+                android:id="@+id/txt_main_category_item_browse_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="@dimen/text_size_small"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="menu_app_setings">MediaMonkey Настройки</string>
+    <string name="menu_plugin_load">Нагрузка плагин</string>
+    <string name="menu_plugin_info">Плагин информация</string>
+    <string name="menu_plugin_settings">Плагин настройки</string>
+    <string name="menu_help_oss">Лицензии открытого ПО</string>
+    <string name="menu_help_about">О MediaMonkey</string>
+    <string name="menu_viewer_rotate">Поворот экрана</string>
+    <string name="menu_viewer_font">Настроить размер шрифта</string>
+</resources>

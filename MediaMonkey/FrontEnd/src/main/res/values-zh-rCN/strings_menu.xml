@@ -1,0 +1,10 @@
+<resources>
+    <string name="menu_app_setings">MediaMonkey设置</string>
+    <string name="menu_plugin_load">加载插件</string>
+    <string name="menu_plugin_info">插件信息</string>
+    <string name="menu_plugin_settings">插件設置</string>
+    <string name="menu_help_oss">开源许可证</string>
+    <string name="menu_help_about">关于MediaMonkey</string>
+    <string name="menu_viewer_rotate">旋转屏幕</string>
+    <string name="menu_viewer_font">调整文字大小</string>
+</resources>

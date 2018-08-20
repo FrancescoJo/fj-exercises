@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">MediaMonkey</string>
+
+    <string name="title_file_picker">플러그인 파일 선택</string>
+
+    <string name="text_cancel">취소</string>
+    <string name="text_confirm">확인</string>
+    <string name="text_confirm_required">확인 필요</string>
+    <string name="text_copy_to_clipboard">클립보드에 복사</string>
+    <string name="text_external_storage">외부 저장소</string>
+    <string name="text_loading">불러오는 중</string>
+    <string name="text_mediamonkey_exception_trace">MediaMonkey 예외 추적 정보</string>
+    <string name="text_menu_open">메뉴 열기</string>
+    <string name="text_menu_close">메뉴 닫기</string>
+    <string name="text_parent_directory">상위 디렉토리</string>
+    <string name="text_retry">재시도</string>
+    <string name="text_select_plugin">플러그인 선택</string>
+    <string name="text_title_plugin_settings">%1$s 설정</string>
+    <string name="text_times_count">%1$d 회</string>
+    <string name="text_date_today">오늘</string>
+    <string name="text_date_yesterday">어제</string>
+
+    <string name="msg_check_plugin_info">MediaMonkey 는 이 플러그인에 대한 보증을 하지 않으며, 실행 후 발생할 수 있는 어떠한 문제에 대한 책임도 지지 않습니다. 신뢰할 수 있는 출처에서 다운로드한 플러그인만 실행하세요. 플러그인 정보는 다음과 같습니다.</string>
+    <string name="msg_copied_to_clipboard">클립보드에 복사했습니다.</string>
+    <string name="msg_error_loading_category">컨텐츠 분류 목록을 불러오지 못했습니다.</string>
+    <string name="msg_error_loading_contents">컨텐츠 목록을 불러오지 못했습니다.</string>
+    <string name="msg_file_hash">파일 해시: %1$s</string>
+    <string name="msg_no_contents_to_display">표시할 컨텐츠 없음</string>
+    <string name="msg_plugin_author">제작자: %1$s</string>
+    <string name="msg_plugin_author_email">메일 주소: %1$s</string>
+    <string name="msg_plugin_date">날짜: %1$s</string>
+    <string name="msg_plugin_description">설명: %1$s</string>
+    <string name="msg_plugin_name">이름: %1$s</string>
+    <string name="msg_plugin_package">패키지: %1$s</string>
+    <string name="msg_plugin_version">버전: %1$s</string>
+    <string name="msg_problem_occurred">문제가 발생했습니다</string>
+
+    <string name="err_already_installed">최신 버전이 이미 설치되어 있습니다. 정말 이 플러그인을 사용하시겠습니까?\n\n설치된 버전:\n%1$s\n\n설치하려는 버전:\n%2$s</string>
+    <string name="err_insufficient_storage_space">저장 공간의 용량이 부족합니다. 필요한 용량: %1$s</string>
+    <string name="err_unexpected_exception_plugin">예외가 발생했습니다. 문제가 계속될 경우, 플러그인 제작자에게 문의하시기 바랍니다.</string>
+    <string name="err_unable_to_access_storage">저장 공간에 접근하는 중 오류가 발생했습니다.</string>
+    <string name="text_please_wait">기다려 주세요…</string>
+</resources>

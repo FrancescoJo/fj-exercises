@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingBottom="@dimen/settings_item_padding_vert"
+        android:paddingLeft="@dimen/settings_item_padding_horiz"
+        android:paddingRight="@dimen/settings_item_padding_horiz"
+        android:paddingTop="@dimen/settings_item_padding_vert">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/_item_settings_item_placeholder"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_setting_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="@dimen/text_size_medium"/>
+
+            <TextView
+                android:id="@+id/txt_setting_item_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_small"/>
+        </LinearLayout>
+
+        <!-- RtlSymmetry: Symmetry for value placeholder view -->
+        <FrameLayout
+            android:id="@+id/_item_settings_item_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:paddingStart="@dimen/settings_item_padding_horiz"
+            tools:ignore="RtlSymmetry">
+
+            <Switch
+                android:id="@+id/txt_setting_item_value_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/txt_setting_item_value_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:gravity="center"
+                android:maxLines="1"
+                android:maxWidth="96dp"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="@dimen/text_size_medium"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/grey_a9"/>
+</LinearLayout>

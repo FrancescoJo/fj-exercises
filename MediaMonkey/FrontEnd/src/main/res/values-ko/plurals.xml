@@ -1,0 +1,5 @@
+<resources>
+    <plurals name="text_date_days_ago">
+        <item quantity="other">%1$d 일 전</item>
+    </plurals>
+</resources>

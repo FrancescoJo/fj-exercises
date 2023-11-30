@@ -37,8 +37,8 @@
   * Background thread 에 할 일을 밀어넣는 방식이라 할 일이 '잘' 끝나지 않는다면 자원이 영원히 회수되지 않는다 -> Memory Leak.
   * 무언가를 daemon 으로 띄우거나 하는 상황 아니면 안 쓰는게 좋다.
   * 생명주기를 스스로 정의하고 이를 통제할 수 있는 Scope 를 따로 정의해서 사용하는 편
-    + (Hwan) RxJava 방식이라면 Computation(Dispatchers.Default), Main(Dispatchers.Main), I/O(Dispatchers.IO), Trampoline(Dispatchers.Undefined) 같은게 대표적일 것 같다.
-    + (Hwan) Backend 에서는 사용하는 Framework 이 일정 주기동안 객체를 통제할 수 있는 기능을 제공한다면 Request scope 정도를 생각해 볼 수 있겠다.
+    - (Hwan) RxJava 방식이라면 Computation(Dispatchers.Default), Main(Dispatchers.Main), I/O(Dispatchers.IO), Trampoline(Dispatchers.Undefined) 같은게 대표적일 것 같다.
+    - (Hwan) Backend 에서는 사용하는 Framework 이 일정 주기동안 객체를 통제할 수 있는 기능을 제공한다면 Request scope 정도를 생각해 볼 수 있겠다.
   * https://blog.jetbrains.com/kotlin/2021/05/kotlin-coroutines-1-5-0-released/
 
 . Coroutine scope 의 정의
@@ -55,8 +55,8 @@
   * immutable. 왜냐면 dispatcher 의 속성에 따라 경쟁 문제가 있을 수도 있기 때문에 그런 상황을 배제하기 위함.
   * 이 때문에 CoroutineContext.Element 내부에는 mutable property 들을 넣으면 안 된다.
   * (Code Spitz) 특정 key 는 coroutine 에서 쓴다. 이건 명백하게 잘못된 설계. 그래서 Coroutine Context 는 이해하기 어렵다.
-    + 이를 이용해 악의적인 CoroutineContext 를 직접 구현해서 dispatcher 를 무력화 할 수 있다(또는 실수로 인해).
-    + 이 때문에 coroutine context 를 잘 쓰기 어려워서 다들 안 쓰는 것 같다.
+    - 이를 이용해 악의적인 CoroutineContext 를 직접 구현해서 dispatcher 를 무력화 할 수 있다(또는 실수로 인해).
+    - 이 때문에 coroutine context 를 잘 쓰기 어려워서 다들 안 쓰는 것 같다.
 
 . withContext 함수
   * Dispatcher 가 같은 곳에서는 큰 문제가 없다.
@@ -69,7 +69,7 @@
 . 일반적인 suspend loop
   * Thread 에서 current thread state 를 매번 체크하면서 loop 하는 technique 이 coroutine 에서도 통용된다.
   * 그러나 Thread 방식보다는 효율적. 왜냐하면 label 의 형태로 변경되는 coroutine 의 특성 때문에.
-    + (Hwan) 실제로 disassemble 하면 확인할 수 있음
-    + (Hwan) RxJava 에서 stream 상태가 terminated 인지 complete 인지 cancel 인지 확인하는 거랑 비슷. 
+    - (Hwan) 실제로 disassemble 하면 확인할 수 있음
+    - (Hwan) RxJava 에서 stream 상태가 terminated 인지 complete 인지 cancel 인지 확인하는 거랑 비슷. 
 
 

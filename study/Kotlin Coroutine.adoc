@@ -1,0 +1,75 @@
+= Kotlin coroutine study
+// Metadata:
+:description: Kotlin coroutine study
+:keywords: kotlin, coroutine
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+
+[[week_2]]
+== 2주차 (30 - Nov. - 2023)
+
+. 1주차 복습: Suspend (중단) 개념에 대해 recap.
+  * Worker - Thread pattern 은 일종의 시분할 OS 처럼 동작. 이 때문에 Coroutine 을 쓴다고 하면 작업을 작게작게 쪼갤 수 있는 형태로 구현해야 문제가 없다. 왜냐면 Computation 동안 다른 Coroutine 들을 실행할 수 없기 때문에...
+  * 우리는 코딩 입문 단계때 Memory 에 뭔가를 많이 집어넣는 형태로 구현... 그러나 Memory 는 CPU 보다 수천배 이상 느린 자원이라 비쌈. 따라서 Coroutine 잘 쓰려면 이 개념을 잘 이해해 두자. CPU 를 많이 갈굴 수 있도록 작업을 작게 쪼갤 수 있는 능력을 가져야 한다.
+  * Kotlin coroutine 은 C#(Task), JS(Promise) 처럼 지정한 타입만 넣을 수 있는 형태와 달리 continuation 의 resume, cancel 만 지원하고 복잡한 것은 라이브러리가 구현할 수 있도록 설계했음. 설계 방향이 완전히 다르다.
+
+. coroutine 은 일종의 '현상' 이다. suspend function 들을 실행하고, 이들이 continuation 을 이용해 맥락이 연결되도록 하는 현상.
+
+. suspend function 을 Continuation 을 받는 일반 함수로 코딩해도 문제가 있을까 없을까?
+  * (Hwan) 맥락을 모두 복원한다면 가능할 것 같은데... 아마 최초 지점에 Continuation 을 만들고 이걸 계속 넘기는 형태로 구현하면 가능할 것 같긴 하다. 근데 어차피 kotlinx 라이브러리의 함수들이 그걸 다 해주고 있지 않을까?
+  * (Code Spitz) 그걸 해 주는 녀석을 Coroutine builder 라고 한다. 그리고 kotlinx 없이도 할 수 있다.
+
+. kotlinx 를 쓰지 말고 직접 한번 coroutine 을 실행해 보자.
+  * Continuation 인터페이스 구현체를 만들어서 넘겨주는 형태의 함수를 만들면 됨. 
+  * (데모)
+  * kotlinx 를 굳이 안 쓰고 직접 하는 이유는 그 동작 원리를 이해하기 위해.
+
+. suspend () 의 확장함수인 startCoroutine 의 동작을 파헤쳐 보자.
+  * suspend 가 아닌 곳에서 suspend function 을 호출하는 방식을 내포하고 있음.
+  * kotlinx 의 scope builder 들이 이런 복잡한 일들을 해 주고 있으나 결국 최종 지점은 Function1<Continuation<T>, Any?> 를 invoke 하는 형태로 수렴함.
+
+. Globalscope 는 쓰지 말자.
+  * 내부에 Job 이 없어서 중단할 방법이 없다.
+  * Background thread 에 할 일을 밀어넣는 방식이라 할 일이 '잘' 끝나지 않는다면 자원이 영원히 회수되지 않는다 -> Memory Leak.
+  * 무언가를 daemon 으로 띄우거나 하는 상황 아니면 안 쓰는게 좋다.
+  * 생명주기를 스스로 정의하고 이를 통제할 수 있는 Scope 를 따로 정의해서 사용하는 편
+    + (Hwan) RxJava 방식이라면 Computation(Dispatchers.Default), Main(Dispatchers.Main), I/O(Dispatchers.IO), Trampoline(Dispatchers.Undefined) 같은게 대표적일 것 같다.
+    + (Hwan) Backend 에서는 사용하는 Framework 이 일정 주기동안 객체를 통제할 수 있는 기능을 제공한다면 Request scope 정도를 생각해 볼 수 있겠다.
+  * https://blog.jetbrains.com/kotlin/2021/05/kotlin-coroutines-1-5-0-released/
+
+. Coroutine scope 의 정의
+  * kotlinx 의 library 가 제공하는 기능
+  * continuation 을 감추고 parallism 을 좀 더 상위 개념으로 추상화
+  * Scope 내에서만 쓸 수 있는 어휘를 이용/또는 직접 정의해서 parallism 을 좀 더 쉽게 구현하도록 하기 위한 개념
+  * (Hwan) 그런 개념이 없다면 1주차 Recap 때 나왔던 queue 에서 하나씩 뽑아먹는걸 우리가 직접 구현해야 하니까..
+  * Suspend function 은 매우 lightweight 기능만 제공하기 때문에 유연하다.
+  * kotlinx.coroutine 은 이 scope 를 고도화 하는 라이브러리. coroutine core 와 kotlinx.coroutine 은 엄밀히 말하면 다르다는 것을 인식해야 함.
+
+. Coroutine Context
+  * suspend function 을 실행할 때 최초로 주어지며, 함수가 실행되는 동안 유지될 데이터다.
+  * CoroutineContext.Element 는 기본적으로 Map 처럼 되어 있음. 왜냐면...?
+  * immutable. 왜냐면 dispatcher 의 속성에 따라 경쟁 문제가 있을 수도 있기 때문에 그런 상황을 배제하기 위함.
+  * 이 때문에 CoroutineContext.Element 내부에는 mutable property 들을 넣으면 안 된다.
+  * (Code Spitz) 특정 key 는 coroutine 에서 쓴다. 이건 명백하게 잘못된 설계. 그래서 Coroutine Context 는 이해하기 어렵다.
+    + 이를 이용해 악의적인 CoroutineContext 를 직접 구현해서 dispatcher 를 무력화 할 수 있다(또는 실수로 인해).
+    + 이 때문에 coroutine context 를 잘 쓰기 어려워서 다들 안 쓰는 것 같다.
+
+. withContext 함수
+  * Dispatcher 가 같은 곳에서는 큰 문제가 없다.
+  * Dispatcher 가 다른 곳에서는 꽤 비용이 비싸다. 무슨 소리인지 이해하려면 반드시 내부 구현을 봐야 한다.
+
+. CoroutineScope.launch 함수
+  * 부모 Job 의 context 로부터 자식 Job 을 만들고 부모 Job 의 context 를 자식 Job 으로 전파한다.
+  * (중요) Job 의 join 은 자식에 전파되지 않는다. 반면 cancel 은 자식에 전파된다.
+
+. 일반적인 suspend loop
+  * Thread 에서 current thread state 를 매번 체크하면서 loop 하는 technique 이 coroutine 에서도 통용된다.
+  * 그러나 Thread 방식보다는 효율적. 왜냐하면 label 의 형태로 변경되는 coroutine 의 특성 때문에.
+    + (Hwan) 실제로 disassemble 하면 확인할 수 있음
+    + (Hwan) RxJava 에서 stream 상태가 terminated 인지 complete 인지 cancel 인지 확인하는 거랑 비슷. 
+
+

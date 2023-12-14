@@ -128,3 +128,63 @@
   * 적은 수의 Thread 를 쉴새없이 돌리는 형태기 때문에 Java Thread 로 구현한 코드보다 성능이 당연히 높아야 정상이다.
   * (Code Spitz) coroutine 의 Mutex, Semaphore 는 모두 cancellation 으로 구현되어 있다. 타 언어와의 가장 큰 차이점.
 
+
+[[week_4]]
+== 4주차 (14 - Dec. - 2023)
+. 쓰레드 블록킹의 종류와 의미
+  * Coroutine 이 **무조건** 좋지는 않음
+    - Loop 10 개로 할 수 있는 일을 굳이 Queue 에 10개로 쪼개서 넣는 게 오히려 더 비효율적이기도 함
+    - 이용 전략은 결국 사용자의 선택
+  * In-Memory 집약적 vs I/O 집약적
+  * Java Virtual Thread 에서도 비슷한 Mention 이 나옴. link:https://youtu.be/5E0LU85EnTI?si=U5lYNhosGCWF30W_[(Sometimes) It is more expensive to run a task in a virtual thread than running it in a platform thread.]
+  * In-Memory 연산(Computational operation) 을 CPU Core 에 할당해서 Hard core 하게 써보기. link:https://jamssoft.tistory.com/225[링크]
+    - (일반적으로) CPU 갯수의 두배만큼의 Thread Pool 을 활용
+    - (Hwan) 그 숫자의 논리적 근거 논문이 있는데 뭐였는지 잘 기억이 안 난다...
+    - https://www.infoq.com/articles/Java-Thread-Pool-Performance-Tuning/
+  * I/O 연산
+    - CPU 외에서 일어나는 모든 일.
+    - CPU 외부에 일을 실행하고 그 결과를 가져오기 위해 Interrupt 가 필요.
+    - 하지만 Interrupt 로 인한 CPU 시간 낭비가 발생
+    - 언제 끝날지 알 수 없음
+    - 따라서 작업 종료 체크 주기가 조금 늦은 대신, Thread Pool 의 갯수를 많이 늘리는 방식으로 작업 효율을 도모
+
+. Dispatcher
+  * RxJava 의 Scheduler 와 비슷한 개념.
+  * (뒤에 나오지만) test 에서 활용할 Dispatcher 임의조작 기능을 제공하고 있음. 이 또한 RxJava Test 와 같음.
+
+. Unconfined Dispatcher
+  * 앞의 suspend 를 실행한 Thread 에서 다음 suspend 를 함께 실행하고 싶다면 현재의 continuation 을 이용해 suspend 가 진짜로 '중단'하지 않고도 다음 작업을 바로 실행할 수 있음
+  * (Code Spitz) Queue 내부에서 실행중인 현재 Coroutine Context 의 유효 기간을 늘린다고 볼 수 있다.
+  * (Hwan) 테스트 때 말고 실용적인 상황이 있을지 잘 모르겠다. 굳이 쓴다면 RxJava 의 Trampoline scheduler 를 생각해 본다면 suspend 함수들을 한 맥락에 묶어 재활용할 상황에서 쓸만하려나...? token 만료 상황시 재시도, 강제 업데이트 처럼 여러 곳에서 재활용할 필요가 있는 함수라던지... 그런데 이런 코드들은 대부분 IO Scheduler 에서 동작하는 함수 위에 extension 으로 동작한다고 가정하고 작성하기 때문에 trampoline 을 굳이 지정한 경우는 없었다.
+  * (Code Spitz) RxJava 와의 차이점: Kotlin coroutine 은 compiler 가 작용하는 기능이다. 여기 주목하자. 가령 Java 의 Future 의 경우 전염성이 없다. 반면 kotlin coroutine 의 경우 suspend 가 전염성이 있다. 이 경우 프로그램 최초 진입점이 suspend function 이라면 단순한 일도 queue 에 넣어서 실행하는 비효율이 발생할 수 있다. 이런 상황을 벗어날 수 있게 해 주는 scheduler 라고 할 수 있다. 따라서 suspend/async 류의 키워드가 없는 RxJava 와의 직접 비교는 큰 의미가 없다.
+
+. Java 에서의 synchronized 키워드의 미래
+  * Virtual Thread 의 용례가 점점 늘어날 수록 synchronized 키워드는 기피받을 것임
+  * ReadWriteLock, ReentrantLock, AtomicXXX 등을 사용하는 패턴으로 migration 을 준비하자.
+  * MySQL JDBC Driver, HikariCP 등이 synchronized 키워드를 끝까지 고수하고 있어 커뮤니티의 반응이 좋지 않다.
+
+. coroutine 을 잘 쓴다는 것
+  * 내가 해결하고자 하는 문제를 어떻게 비동기의 맥락으로 바꿔서 해결할 수 있느냐? 라는 안목을 가졌다는 의미
+  * 3주차에서도 언급했던 '동시성의 조직화'
+
+. 공유 상태로 인한 문제
+  * kotlinx.coroutine 이 kotlinx.atomicfu 을 이미 내장하고 있음
+  * 코틀린 코루틴 책 집필당시에는 atomic fu 라이브러리가 없어서 책에서는 JVM 의 AtomicXXX 시리즈로 예제를 설명하고 있음
+  * fine-frained thread confinement
+    - 동기화할 일들을 lambda 형태로 받아 single thread 내에서만 처리하도록 하는 기법
+    - Kotlin coroutine 에서는 limited parallelism 을 1로 둔 Dispatcher 를 선언하고 withContext 가 그 dispatcher 를 쓰도록 함
+    - 좋은 전략은 아님. 하지만 간편하다.
+  * kotlinx.coroutines.sync.Mutex 
+    - OS mutex 가 아니라, suspend function 으로 구현한 가짜 Mutex
+    - 따라서 suspend function 내에서 가장 효율적으로 critical section 을 구현할 수 있음
+    - deadlock 문제는 여전히 있다. 이 때문에 까다롭다.
+  * kotlinx.coroutines.sync.Semaphore
+    - Mutex 와 기본 개념은 같다.
+    - N 개의 critical section 을 구현할 때 활용
+    - 잘 쓰는 사례가 있을까?
+    - (Code Spitz) 그냥 처음부터 병행 알고리즘을 잘 생각할 수 있다면 굳이 필요할까?
+
+. 마무리
+  * kotlin team 은 방어적으로 작성하는 편
+  * 1.3 -> 1.6 -> 1.9 올라오면서 성능이 크게 jump
+  * 하지만 아직도 개선할 곳이 많다(발전 가능성이 있다).

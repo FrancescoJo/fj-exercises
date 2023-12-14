@@ -170,7 +170,7 @@
 . 공유 상태로 인한 문제
   * kotlinx.coroutine 이 kotlinx.atomicfu 을 이미 내장하고 있음
   * 코틀린 코루틴 책 집필당시에는 atomic fu 라이브러리가 없어서 책에서는 JVM 의 AtomicXXX 시리즈로 예제를 설명하고 있음
-  * fine-frained thread confinement
+  * fine-grained thread confinement
     - 동기화할 일들을 lambda 형태로 받아 single thread 내에서만 처리하도록 하는 기법
     - Kotlin coroutine 에서는 limited parallelism 을 1로 둔 Dispatcher 를 선언하고 withContext 가 그 dispatcher 를 쓰도록 함
     - 좋은 전략은 아님. 하지만 간편하다.

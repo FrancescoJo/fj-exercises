@@ -1,0 +1,134 @@
+= spring-message-board-demo
+Francesco Jo <nimbusob@gmail.com>
+// Metadata:
+:description: spring-message-board-demoプロジェクト概要
+:keywords: spring-boot, jpa-hibernate, junit5, spock-groovy, spring-rest-docs, tdd, kotlin, gradle, flutter-examples
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+// Refs:
+:app-name: app-main
+:app-version: 1.0
+:link-jdk: https://openjdk.java.net/
+:link-spring: https://spring.io/projects/spring-framework
+:link-jpa: https://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html
+:link-flutter: https://flutter.dev/
+:link-detekt: https://arturbosch.github.io/detekt/index.html
+
+[[overview]]
+= 概要
+
+僕が保有しているプログラミング能力を示範するため、以前の例題で作った
+https://github.com/FrancescoJo/springboot-multimodule-kotlin[springboot-multimodule-kotlin]をベースにした
+簡単なプロジェクト。
+
+このプロジェクトでは、特に次の領域を集中的に見せるために努めました：
+
+- https://spring.io/projects/spring-framework[Spring boot]tを利用したRESTful API backend、
+- https://en.wikipedia.org/wiki/Test-driven_development[Test-driven-development]開発方法論、
+- link:{link-jpa}[Java Persistence API],
+- link:{link-flutter}[Flutter]をSpring bootアプリのweb frontendとして使い.
+
+[[prerequisites]]
+== 事前要求事項及び限界
+
+1. link:{link-jdk}[OpenJDK 13]またはそのそれ以上。
+2. ビルドプロセス完了のためには、link:{link-flutter}[Flutter SDK]の追加インストール。
+3. （必須ではない、推薦）デバッグのためのlink:https://www.jetbrains.com/idea/[IntelliJ IDEA Ultimate]開発ツール。
+
+2020年基準で主に使用されているWindows、MacOS、そしてLinux環境でテストとビルドが完了しました。
+
+GradleとKotlin pluginの不備のため、このプロジェクトはEclipse IDEでの正常実行を保障しません。
+
+[[tech-stacks]]
+== 採択技術
+
+* ビルドツール：
+** https://gradle.org/[Gradle 6.5]
+
+* 言語：
+** link:{link-jdk}[Java 13]－プラットフォーム
+** https://kotlinlang.org/[Kotlin 1.4]－backend単体テスト
+** http://groovy-lang.org/[Groovy 2.5]－backend統合テスト
+** https://dart.dev[Dart 2.10]－web frontend
+
+* フレームワークと実行環境 ：
+** http://undertow.io/[Undertow]－ウェブアプリケーションサーバ
+** http://spring.io/projects/spring-boot[Spring boot 2]－backendアプリケーションフレームワーク
+** http://hibernate.org/[Hibernate]－link:{link-jpa}[JPA]実装及びデータ永続
+** https://github.com/brettwooldridge/HikariCP[HicariCP]－データベース·コネクション管理
+** link:{link-flutter}[Flutter]－web frontend
+
+* コード品質：
+** https://junit.org/junit5/docs/current/user-guide/[JUnit 5]
+** http://groovy-lang.org/[Groovy]を必要とするhttp://spockframework.org/[Spock framework]
+** link:{link-detekt}[detekt]
+** https://spring.io/projects/spring-restdocs[Spring RESTDocs]に統合された
+https://asciidoctor.org/docs/asciidoctor-gradle-plugin/[Asciidoctor]－文書の自動化
+
+[[building-and-running]]
+= ビルド及び実行
+
+ビルドと実行過程の前に、link:{link-jdk}[Java SDK]とlink:{link-flutter}[Flutter SDK]コマンドを
+アクセス可能なPATHに宣言する必要があります。
+
+[[how-to-build]]
+== ビルド方法
+
+[source,shell script]
+----
+./gradlew clean assemble [-PbuildConfig={local|release}]
+----
+
+* `buildConfig` はオプションを省略すると `local` に自動的に固定されます。
+* 単独実行用JARファイルは `assemble` 作業後、`app-main/build/outputs` ディレクトリに生成されます。
+
+[[how-to-run]]
+== 実行方法
+
+プログラムを実行する前に `application.yml` ファイルを project root または実行 context root に作成する必要があります。
+序盤の実行過程を速くするため project root に `application.yml.sample` ファイルがあります。
+このファイルをコピー後、名前を `application.yml` に変えればすぐ実行できます。
+
+ビルド後、次のコマンドでサーバーを実行します:
+
+[subs="attributes,verbatim"]
+----
+java -jar app-main/build/libs/{app-name}-{app-version}.jar
+----
+
+また `application.yml` に設定した localhost の port 番号で接続を試みます。
+
+[[code-quality-measurement]]
+= コード品質測定
+
+[[how-to-tests]]
+== テスト実行及びカバレッジレポート
+
+このプロジェクトはTDDに従っており、したがって論理完結性を証明するためのテストケースが数多くあります。
+ご存知のように、統合テストは *テスト* ですが単体テストに比べて実行時間が長くかかります。
+だから、両方のテストはプロジェクト内でそれぞれ分離されており、これをすべて実行するには：
+
+[source,shell script]
+----
+./gradlew test integrationTest jacocoTestReport
+----
+
+コマンドを実行する必要があり、テストとカバレッジレポートは各モジュールの `build/reports` ディレクトリに生成されます。
+
+また、 https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html[Googleテストブログ]
+には良いテスト文書がありますので、ご参考ください。
+
+[[how-to-analyze]]
+== 静的分析実行及びレポート
+
+このプロジェクトは静的分析ツールとして link:{link-detekt}[detekt] を使います。
+以下のコマンドで Gradle の `detekt` 作業を実行して静的分析を実行してください：
+
+[source,shell script]
+----
+./gradlew detekt
+----

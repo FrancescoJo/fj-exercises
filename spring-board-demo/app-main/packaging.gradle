@@ -1,0 +1,31 @@
+/*
+ * This script force enables JAR packaging in order to export this module as library, especially for
+ * module `app-main-integrationTest`.
+ *
+ * https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/html/#packaging-executable
+ */
+jar {
+    enabled = true
+    archiveClassifier.set("lib")
+}
+
+bootJar {
+    archiveClassifier.set("boot")
+}
+
+ext.getBuildConfig = {
+    def allowedBuildTargets = ["local", "release"]
+    def buildConfig
+    if (project.hasProperty("buildConfig")) {
+        buildConfig = project.properties["buildConfig"].toString().toLowerCase(Locale.US)
+    } else {
+        buildConfig = "local"
+        println("No build configuration is specified - '$buildConfig' is used by default")
+    }
+
+    if (!allowedBuildTargets.contains(buildConfig)) {
+        throw new IllegalArgumentException("Only these build targets are accepted: $allowedBuildTargets")
+    }
+
+    return buildConfig
+}

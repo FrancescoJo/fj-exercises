@@ -1,0 +1,65 @@
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+apply from: "$project.rootDir/gradle/scripts/java.gradle"
+apply from: "$project.rootDir/gradle/scripts/kotlin.gradle"
+apply from: "$project.rootDir/gradle/scripts/jacoco.gradle"
+apply from: "$project.rootDir/gradle/scripts/testing-junit.gradle"
+apply from: "$project.rootDir/gradle/scripts/detekt.gradle"
+apply from: "packaging.gradle"
+apply from: "versioning.gradle"
+apply from: "build-frontend.gradle"
+
+sourceSets {
+    def buildConfig = getBuildConfig()
+
+    println("Building JAR for '$buildConfig' environment")
+    main {
+        java {
+            srcDirs = [srcDirs, "src/$buildConfig/java", "src/$buildConfig/kotlin"]
+        }
+
+        resources {
+            srcDirs = [srcDirs, "src/$buildConfig/resources"]
+        }
+    }
+}
+
+dependencies {
+    api project(":app-core")
+
+    // Spring boot
+    implementation "org.springframework.boot:spring-boot-starter-undertow:$version_springBoot"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:$version_springBoot"
+    implementation "org.springframework.boot:spring-boot-starter-validation:$version_springBoot"
+
+    // DBMS
+    // Change this to your favourite database (and apply it to application.yml configuration file)
+    implementation "com.h2database:h2"
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$version_springBoot"
+
+    testImplementation project(path: ":lib-common", configuration: "testArtifacts")
+    testImplementation project(path: ":app-core", configuration: "testArtifacts")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:$version_springBoot"
+    }
+}
+
+task copyCoreResources(type: Copy) {
+    final coreProjectName = "app-core"
+    final thisProjectName = "app-main"
+    final buildVariants = ["main"]
+
+    buildVariants.forEach {
+        from "$project.rootDir/$coreProjectName/src/$it/resources/"
+        into "$project.rootDir/$thisProjectName/build/resources/$it"
+    }
+}
+
+jar.dependsOn bootJar
+// This step resolves resource copy problem which only exists on other('common') module
+classes.dependsOn copyCoreResources

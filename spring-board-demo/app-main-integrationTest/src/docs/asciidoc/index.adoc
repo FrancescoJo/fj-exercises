@@ -1,0 +1,38 @@
+= spring-board-demo API documentation
+Francesco Jo <nimbusob@gmail.com>
+// Metadata:
+:description: The description of this page.
+:keywords: writing, documentation, publishing
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+:idprefix:
+:idseparator: -
+// Refs:
+:url-project: https://github.com/FrancescoJo/spring-board-demo
+:url-docs: {url-project}/README.md
+:url-issues: {url-project}/asciidoctor
+:snippets: ../../../build/generated-snippets
+// Macros:
+:operation-http-request-title: Example request
+:operation-http-response-title: Example response
+
+[[overview]]
+= Overview
+
+API documentation of spring-board-demo.
+
+[[common-payloads]]
+= Common payloads
+
+List of common payloads in every request and/or responses.
+
+include::fragments/CommonPayloads.adoc[]
+
+[[api-operations]]
+= API operations
+
+include::fragments/APIOperations.adoc[]

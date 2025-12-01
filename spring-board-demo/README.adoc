@@ -1,0 +1,147 @@
+= spring-message-board-demo
+Francesco Jo <nimbusob@gmail.com>
+// Metadata:
+:description: Simple overview of spring-message-board-demo
+:keywords: spring-boot, jpa-hibernate, junit5, spock-groovy, spring-rest-docs, tdd, kotlin, gradle, flutter-examples
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+// Refs:
+:app-name: app-main
+:app-version: 1.0
+:link-jdk: https://openjdk.java.net/
+:link-spring: https://spring.io/projects/spring-framework
+:link-jpa: https://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html
+:link-flutter: https://flutter.dev/
+:link-detekt: https://arturbosch.github.io/detekt/index.html
+
+[[overview]]
+= Overview
+
+A simple project, Based on default settings of my previous project
+https://github.com/FrancescoJo/springboot-multimodule-kotlin[springboot-multimodule-kotlin],
+that demonstrating my programming skills.
+
+In this project. I especially focused on showcasing:
+
+- https://spring.io/projects/spring-framework[Spring boot] as RESTful API backend,
+- https://en.wikipedia.org/wiki/Test-driven_development[Test-driven-development] practice,
+- link:{link-jpa}[Java Persistence API],
+- Integration of link:{link-flutter}[Flutter] as web frontend into Spring boot.
+
+[[prerequisites]]
+== Prerequisites and limitations
+
+1. link:{link-jdk}[OpenJDK 13] or above.
+2. link:{link-flutter}[Flutter SDK] is also required for build process.
+3. (Optional, Recommended) https://www.jetbrains.com/idea/[IntelliJ IDEA Ultimate] for debugging.
+
+Tested and built under This 3 major operating systems in 2020: Windows, MacOS and Linux.
+
+Due to inadequate support of Gradle and Kotlin plugin, unfortunately this project is cannot be run
+under in Eclipse IDE. I'm still trying to find a workaround for this.
+
+[[tech-stacks]]
+== Technical stack explanation
+
+* Build tools:
+** https://gradle.org/[Gradle 6.5]
+
+* Languages:
+** link:{link-jdk}[Java 13] - platform runtime
+** https://kotlinlang.org/[Kotlin 1.4] - backend unit test
+** http://groovy-lang.org/[Groovy 2.5] - backend integration test
+** https://dart.dev[Dart 2.10] - web frontend
+
+* Frameworks and runtimes:
+** http://undertow.io/[Undertow] - for Web application server
+** http://spring.io/projects/spring-boot[Spring boot 2] - application framework
+** http://hibernate.org/[Hibernate] - link:{link-jpa}[JPA] implementation / persistent data
+** https://github.com/brettwooldridge/HikariCP[HicariCP] - database connection pool
+** link:{link-flutter}[Flutter] - web frontend
+
+* Code quality:
+** https://junit.org/junit5/docs/current/user-guide/[JUnit 5]
+** http://spockframework.org/[Spock framework] with http://groovy-lang.org/[Groovy]
+** link:{link-detekt}[detekt]
+** https://spring.io/projects/spring-restdocs[Spring RESTDocs] with
+   https://asciidoctor.org/docs/asciidoctor-gradle-plugin/[Asciidoctor] - Automatic documentation
+
+[[building-and-running]]
+= Building & Running application
+
+Ensure that both link:{link-jdk}[Java SDK] and link:{link-flutter}[Flutter SDK] commands are directly accessible
+via `PATH`, before build process.
+
+[[how-to-build]]
+== How to build
+
+[source,shell script]
+----
+./gradlew clean assemble [-PbuildConfig={local|release}]
+----
+
+* `buildConfig` will be defaulted as `local` if the option is omitted.
+* Standalone executable JAR file will be created in `app-main/build/outputs` directory after `assemble` task is finished.
+
+[[how-to-run]]
+== How to run
+
+You must place an `application.yml` file before running this application in project root or execution context root.
+In order to help a quick start, there is `application.yml.sample` file is in root directory. Just copy that file and
+change name to `application.yml`, and you're all set to go.
+
+Run server after build by following:
+
+[subs="attributes,verbatim"]
+----
+java -jar app-main/build/libs/{app-name}-{app-version}.jar
+----
+
+and access to localhost with port number specified in your own `application.yml` file.
+
+[[code-quality-measurement]]
+= Code quality measurement
+
+[[how-to-tests]]
+== How to run tests and coverage report
+
+This project is written under TDD practice, thus there are many test cases to prove logical integrity. As we know,
+integration tests are *tests* but running them takes long time rather than unit tests. Therefore, those two tests
+are separated in this project, and you can run both of them by following:
+
+[source,shell script]
+----
+./gradlew test integrationTest jacocoTestReport
+----
+
+to run all tests and coverage reports in each `build/reports` directory.
+
+There is a good article about testing -
+read https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html[Google Testing Blog post] for more details.
+
+[[how-to-analyze]]
+== How to run static analysis and create report files
+
+This project uses link:{link-detekt}[detekt] as a static analyser.
+Gradle `detekt` task will perform a static analysis by following:
+
+[source,shell script]
+----
+./gradlew detekt
+----
+
+For your own configuration, read the official document and modify gradle/scripts/detekt.gradle file.
+
+[[addendum]]
+= Addenda
+
+[[translations]]
+== Translations
+
+There are translations in several languages. You can read this document in
+link:README-es.adoc[español(castellano)], link:README-ko.adoc[한국어],
+and link:README-ja.adoc[日本語].
